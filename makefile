@@ -13,7 +13,7 @@ all: run
 
 build:
 	if [ -f $(BIN_DIR)/$(BIN) ]; then rm -rf $(BIN_DIR)/$(BIN); fi
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(BIN) $(SRC)
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(BIN) $(SRC) $(SRC_DIR)/*/*.c
 
 run: 
 	if [ ! -f $(BIN_DIR)/$(BIN) ]; then make build; fi
