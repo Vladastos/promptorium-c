@@ -35,7 +35,7 @@
 *.i*86
 *.x86_64
 *.hex
-bin/*
+build/
 
 # Debug files
 *.dSYM/
@@ -54,3 +54,6 @@ dkms.conf
 
 # gitkeep
 !.gitkeep
+
+# editors
+.vscode
