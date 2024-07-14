@@ -1,7 +1,7 @@
 #ifndef PRINT_HELP_H
 #define PRINT_HELP_H
 
-#include <stdio.h>
+#include "../../common/common-modules.h"
 
 int print_help();
 

@@ -1,7 +1,6 @@
-#ifndef CREATE_DAEMON_H
-#define CREATE_DAEMON_H
+#ifndef COMMON_H
+#define COMMON_H
 
-#include "../status-handling/status-handling.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -11,8 +10,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int load_config();
-
-int get_key();
+#include "status-handling/status-handling.h"
 
 #endif

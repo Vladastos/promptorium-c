@@ -1,7 +1,12 @@
 #include "main.h"
 
 int parse_args(int argc, char *argv[]) {
+    if(argc == 1) {
+        print_help();
+        return 0;
+    }
     for (int i = 1; i < argc; i++) {
+        
         if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             print_help();
             return 0;
@@ -17,7 +22,14 @@ int parse_args(int argc, char *argv[]) {
             return 0;
         }
 
-        print_help();
+        if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--cleanup") == 0) {
+            cleanup_memory();
+            return 0;
+        }
+
+        if(strcmp(argv[i], "--") == 0) {
+            break;   
+        }
 
     }
     return 0;

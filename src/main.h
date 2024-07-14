@@ -7,11 +7,9 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 
-#include "modules/status-handling/status-handling.h"
-#include "modules/print-help/print-help.h"
-#include "modules/print-version/print-version.h"
-#include "modules/load-config/load-config.h"
+#include "modules/common/common-modules.h"
+#include "modules/application/application-modules.h"
 
-#define VERSION "0.0.1"
+#define VERSION "0.0.2"
 
 int main(int argc, char *argv[]);

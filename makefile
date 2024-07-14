@@ -20,7 +20,7 @@ run:
 
 build:
 	if [ -f $(BIN_DIR)/$(BIN) ]; then rm -rf $(BIN_DIR)/$(BIN); fi
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(BIN) $(SRC) $(MODULES_DIR)/*/*.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(BIN) $(SRC) $(MODULES_DIR)/*/*/*.c
 
 lint:
 	$(CC) $(CFLAGS) -fsyntax-only  $(SRC)
@@ -31,7 +31,7 @@ format:
 clean:
 	rm -rf $(BIN_DIR)/*
 
-deploy: all
+deploy: build
 	sudo cp $(BIN_DIR)/$(BIN) $(DEPLODY_DIR)
 	sudo chmod +x $(DEPLODY_DIR)/$(BIN)
 

@@ -5,23 +5,27 @@ generate_ipc_key() {
     echo $(( $RANDOM ** 4 % 1000000000000000 ))
 }
 
-export PROMPTORIUM_IPC_KEY=$(generate_ipc_key)
-
-main() {
-    # create a shared memory segment key
-
-    # load promptorium configuration
-
-
+log(){
+    log_level=$1
+    message=$2
+    timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+    echo "[$timestamp] [$log_level] $message" >> /home/vlad/Documents/promptorium-c/shell/promptorium_init.log
 }
 
-#function to be called on exit
 cleanup(){
-    # unload promptorium configuration
-
+    log "INFO" "removing shared memory segment for promptorium configuration $PROMPTORIUM_IPC_KEY"
     # remove shared memory segment
 }
 
+main() {
+    export PROMPTORIUM_IPC_KEY=$(generate_ipc_key)
+    log "INFO" "ipc key generated: $PROMPTORIUM_IPC_KEY "
+    # create a shared memory segment key
+    log "INFO" "starting promptorium configuration"
+    # load promptorium configuration
+}
+
+#function to be called on exit
 trap cleanup EXIT
 
 main
