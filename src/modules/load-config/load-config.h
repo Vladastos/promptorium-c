@@ -11,6 +11,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int load_config(status_t *status);
+int load_config();
+
+int get_key();
 
 #endif

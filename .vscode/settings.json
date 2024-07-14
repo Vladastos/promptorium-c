@@ -5,7 +5,9 @@
     "status-handling.h": "c",
     "main.h": "c",
     "stdio.h": "c",
-    "types.h": "c"
+    "types.h": "c",
+    "wait.h": "c",
+    "print-help.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
