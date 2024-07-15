@@ -26,7 +26,7 @@ lint:
 	$(CC) $(CFLAGS) -fsyntax-only  $(SRC)
 
 format:
-	clang-format -i $(SRC_DIR)/*.c $(SRC_DIR)/*.h $(MODULES_DIR)/*/*.c $(MODULES_DIR)/*/*.h 
+	clang-format -i $(SRC_DIR)/*.c $(SRC_DIR)/*.h  $(MODULES_DIR)/*/*.h $(MODULES_DIR)/*/*/*.c $(MODULES_DIR)/*/*/*.h
 
 clean:
 	rm -rf $(BIN_DIR)/*
