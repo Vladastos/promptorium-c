@@ -4,9 +4,8 @@ char *get_prompt() {
     struct config config;
 
     log_debug("get_prompt", "Reading config from shared memory");
-    char *shm = attach_shared_memory_segment(get_key_variable());
-    read_config_from_shared_memory_segment(shm, &config);
-    detach_shared_memory_segment(shm);
+    int ipc_key = get_key_variable();
+    read_config_from_shared_memory_segment(ipc_key, &config);
 
     return "$ \n";
 }
