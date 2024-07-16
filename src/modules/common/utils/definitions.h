@@ -16,6 +16,11 @@
 #define CONFIG_FILE_DIR "/home/vlad/Documents/promptorium-c/conf"
 #define CONFIG_FILE_PATH CONFIG_FILE_DIR "/" CONFIG_FILE_NAME
 
+#define LOG_FILE_NAME "promptorium.log"
+#define LOG_FILE_DIR "/home/vlad/Documents/promptorium-c/shell"
+#define LOG_FILE_PATH LOG_FILE_DIR "/" LOG_FILE_NAME
+
+// Structures
 struct config {
     int SHOW_GIT_STATUS;
     int SHOW_HOST;

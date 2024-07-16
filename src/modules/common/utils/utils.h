@@ -3,17 +3,27 @@
 
 #include <string.h>
 
-extern int debug_mode;
+#include "../common-modules.h"
+#include "definitions.h"
 
-int get_ipc_key();
+extern int $debug_mode;
 
-int log_message(int level, const char *message);
+extern char *$log_file_path;
 
-int log_info(char *message);
+int $get_ipc_key();
 
-int log_error(char *function_name, char *message);
+int $log_message(int level, const char *message);
 
-int log_warning(char *message);
+int $log_info(char *message);
 
-int log_debug(char *function_name, char *message);
+int $log_error(char *function_name, char *message);
+
+int $log_warning(char *message);
+
+int $log_debug(char *function_name, char *message);
+
+char *$strtrim(char *s);
+
+void $debug_config(struct config *config);
+
 #endif

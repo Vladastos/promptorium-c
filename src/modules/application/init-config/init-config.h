@@ -5,8 +5,10 @@
 
 int init_config();
 
-int read_config_from_file();
+void _get_config_from_file(struct config *config);
 
-struct config get_default_config();
+void _parse_config_line(char *line, struct config *config);
+
+struct config _get_default_config();
 
 #endif

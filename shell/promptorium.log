@@ -1,0 +1,26 @@
+[ 2024-07-16 21:25:07 ] [ ERROR ] Failed to create shared memory segment 
+[ 2024-07-16 21:25:07 ] [ ERROR ] File exists 
+[ 2024-07-16 21:25:48 ] [ INFO ] ipc key generated: 6062013696 
+[ 2024-07-16 21:25:48 ] [ INFO ] starting promptorium configuration
+[ 2024-07-16 21:25:48 ] [ DEBUG ] Starting in debug mode 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] Initializing config 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] Reading config from file 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] /home/vlad/Documents/promptorium-c/conf/promptorium.conf 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] Config after parsing:  
+[ 2024-07-16 21:25:48 ] [ DEBUG ] Creating shared memory segment 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] 6062013696 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] Creating shared memory segment 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] Writing config to shared memory segment 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] 6062013696 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] Attaching shared memory segment 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] Writing config to shared memory segment 
+[ 2024-07-16 21:25:48 ] [ DEBUG ] Detaching shared memory segment 
+[ 2024-07-16 21:25:48 ] [ INFO ] promptorium configuration loaded
+[ 2024-07-16 21:26:01 ] [ DEBUG ] Starting in debug mode 
+[ 2024-07-16 21:26:01 ] [ DEBUG ] Reading config from shared memory 
+[ 2024-07-16 21:26:01 ] [ DEBUG ] 6062013696 
+[ 2024-07-16 21:26:01 ] [ DEBUG ] Attaching shared memory segment 
+[ 2024-07-16 21:26:01 ] [ DEBUG ] Reading config from shared memory segment 
+[ 2024-07-16 21:26:01 ] [ DEBUG ] Detaching shared memory segment 
+[ 2024-07-16 21:26:01 ] [ DEBUG ] Config after parsing:  
+[ 2024-07-16 21:26:46 ] [ INFO ] removing shared memory segment for promptorium configuration 6062013696

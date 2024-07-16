@@ -13,13 +13,13 @@ char *_build_prompt() {
     }
     snprintf(prompt, 256, "%s > $", cwd);
     free(cwd);
-    return prompt;   
+    return prompt;
 }
 
 char *_build_directory_module() {
     // get the current working directory
     size_t size = 256;
-    char* cwd = malloc(size);
+    char *cwd = malloc(size);
     if (cwd == NULL) {
         throw_error("build_directory_module : malloc", "Failed to allocate memory");
     }
@@ -32,7 +32,8 @@ char *_build_directory_module() {
 
         if (errno != ERANGE) {
             free(cwd);
-            throw_error("build_directory_module : getcwd", "Failed to get current working directory");
+            throw_error("build_directory_module : getcwd",
+                        "Failed to get current working directory");
             return NULL;
         }
         size *= 2;

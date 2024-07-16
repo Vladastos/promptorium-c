@@ -11,9 +11,9 @@ int parse_args(int argc, char *argv[]) {
 
         if (strcmp(argv[i], "debug") == 0) {
 
-            debug_mode = 1;
+            $debug_mode = 1;
 
-            log_debug("parse_args", "Starting in debug mode");
+            $log_debug("parse_args", "Starting in debug mode");
             continue;
         }
 
@@ -33,7 +33,7 @@ int parse_args(int argc, char *argv[]) {
         }
 
         if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--cleanup") == 0) {
-            cleanup_shared_memory_segment();
+            $memory_cleanup_segment();
             return 0;
         }
 
@@ -46,8 +46,9 @@ int parse_args(int argc, char *argv[]) {
             break;
         }
     }
-    log_debug("parse_args", "Invalid arguments");
+    $log_debug("parse_args", "Invalid arguments");
     print_help();
     return 1;
 }
+
 int main(int argc, char *argv[]) { return parse_args(argc, argv); }

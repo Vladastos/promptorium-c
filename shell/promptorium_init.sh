@@ -10,7 +10,7 @@ log(){
     log_level=$1
     message=$2
     timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    echo "[$timestamp] [$log_level] $message" >> $PROMPTORIUM_LOG_DIR/promptorium_init.log
+    echo "[ $timestamp ] [ $log_level ] $message" >> $PROMPTORIUM_LOG_DIR/promptorium.log
 }
 
 cleanup(){

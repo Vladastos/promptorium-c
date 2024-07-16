@@ -2,8 +2,11 @@
 #define MAIN_H
 #include "modules/application/application-modules.h"
 #include "modules/common/common-modules.h"
+#include "modules/common/utils/definitions.h"
 
-int debug_mode = 0;
+int $debug_mode = DEBUG_MODE;
+
+char *$log_file_path = LOG_FILE_PATH;
 
 int main(int argc, char *argv[]);
 
