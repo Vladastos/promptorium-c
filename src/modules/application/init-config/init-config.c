@@ -10,12 +10,8 @@ struct config get_default_config() {
     return default_config;
 }
 
-struct config get_config_from_file() {
-    log_debug("get_config_from_file", "Getting default config");
+void get_config_from_file(struct config *default_config) {
 
-    struct config default_config = get_default_config();
-
-    log_debug("get_config_from_file", "Reading config from file");
     log_debug("get_config_from_file", CONFIG_FILE_PATH);
     FILE *fp = fopen(CONFIG_FILE_PATH, "r");
 
@@ -32,23 +28,36 @@ struct config get_config_from_file() {
         fclose(fp);
     }
 
-    return default_config;
+    return;
 }
 
 int init_config() {
 
     log_debug("init_config", "Initializing config");
 
-    // create the shared memory segment
-    int shmid = create_shared_memory_segment(1024, IPC_CREAT | 0666);
+    struct config default_config = get_default_config();
 
+    log_debug("init_config", "Getting key variable");
+    int key = get_key_variable();
+
+    log_debug("init_config", "Creating shared memory segment");
+    // create the shared memory segment
+    int shmid = create_shared_memory_segment(key, 1024, IPC_CREAT | 0666);
+
+    log_debug("init_config", "Attaching shared memory segment");
     // attach the shared memory segment
     char *shm = attach_shared_memory_segment(shmid);
 
     // TODO: load configuration from file
 
-    read_config_from_file();
+    log_debug("get_config_from_file", "Reading config from file");
+    get_config_from_file(&default_config);
 
+    log_debug("init_config", "Writing config to shared memory segment");
+    // write the config to the shared memory segment
+    write_config_to_shared_memory_segment(shm, &default_config);
+
+    log_debug("init_config", "Detaching shared memory segment");
     detach_shared_memory_segment(shm);
 
     return 0;

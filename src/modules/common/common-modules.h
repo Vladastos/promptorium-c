@@ -2,9 +2,11 @@
 #define COMMON_H
 
 #include <signal.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/errno.h>
 #include <sys/file.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>

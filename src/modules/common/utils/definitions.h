@@ -3,6 +3,8 @@
 
 #define PROMPTORIUM_VERSION "0.0.2"
 
+#define DEBUG_MODE 0
+
 #define LOG_LEVEL_INFO 0
 #define LOG_LEVEL_ERROR 1
 #define LOG_LEVEL_WARNING 2

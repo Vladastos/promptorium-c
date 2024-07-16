@@ -3,9 +3,9 @@
 #include "status-handling.h"
 
 void on_error(char *function_name, char *message) {
-    fprintf(stderr, "%s: %s\n", function_name, message);
+    log_error(function_name, message);
     if (errno != 0) {
-        perror("Error: ");
+        log_error(function_name, strerror(errno));
     }
     exit(1);
 }

@@ -1,9 +1,8 @@
 #include "shared-memory-management.h"
 
 // Create a shared memory segment and return its id
-int create_shared_memory_segment(int size, int permissions) {
+int create_shared_memory_segment(int key, int size, int permissions) {
     // get the shared memory key from the environment variable
-    int key = get_key_variable();
     // create the shared memory segment
     log_debug("create_shared_memory_segment", "Creating shared memory segment");
     int shmid = shmget(key, size, permissions | IPC_CREAT);
@@ -14,8 +13,15 @@ int create_shared_memory_segment(int size, int permissions) {
     return shmid;
 }
 
-char *attach_shared_memory_segment(int shmid) {
+char *attach_shared_memory_segment(int key) {
     // attach the shared memory segment
+    log_debug("attach_shared_memory_segment", "Attaching shared memory segment");
+
+    int shmid = shmget(key, 0, 0);
+    if (shmid == -1) {
+        on_error("attach_shared_memory_segment : shmget",
+                 "Failed to attach shared memory segment");
+    }
     char *shm = shmat(shmid, NULL, 0);
     if (shm == (char *)-1) {
         on_error("attach_shared_memory_segment : shmat",
@@ -32,9 +38,15 @@ int detach_shared_memory_segment(char *shm) {
     return 0;
 }
 
-int write_to_shared_memory_segment(char *shm, char *data) {
+int write_config_to_shared_memory_segment(char *shm, struct config *config) {
     // write to the shared memory segment
-    strcat(shm, data);
+    memcpy(shm, config, sizeof(struct config));
+    return 0;
+}
+
+int read_config_from_shared_memory_segment(char *shm, struct config *config) {
+    // read from the shared memory segment
+    memcpy(config, shm, sizeof(struct config));
     return 0;
 }
 

@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "../status-handling/status-handling.h"
 #include "definitions.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -22,6 +23,9 @@ int get_key_variable() {
 }
 
 int log_message(int level, const char *message) {
+
+    extern int debug_mode;
+
     char *log_level;
     switch (level) {
         case LOG_LEVEL_INFO:
@@ -34,6 +38,9 @@ int log_message(int level, const char *message) {
             log_level = "WARNING";
             break;
         case LOG_LEVEL_DEBUG:
+            if (debug_mode == 0) {
+                return 0;
+            }
             log_level = "DEBUG";
             break;
         default:
@@ -51,7 +58,17 @@ int log_message(int level, const char *message) {
 
 int log_info(char *message) { return log_message(LOG_LEVEL_INFO, message); }
 
-int log_error(char *message) { return log_message(LOG_LEVEL_ERROR, message); }
+int log_error(char *function_name, char *message) {
+    char *message_string = malloc(strlen(function_name) + strlen(message) + 2);
+    if (message_string == NULL) {
+        on_error("log_debug : malloc", "Failed to allocate memory for message string");
+        return 1;
+    }
+    sprintf(message_string, "%s: %s", function_name, message);
+    int result = log_message(LOG_LEVEL_ERROR, message_string);
+    free(message_string);
+    return result;
+}
 
 int log_warning(char *message) { return log_message(LOG_LEVEL_WARNING, message); }
 

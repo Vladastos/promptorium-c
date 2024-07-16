@@ -2,14 +2,17 @@
 #define SHARED_MEMORY_MANAGEMENT_H
 
 #include "../common-modules.h"
+#include "../utils/definitions.h"
 
-int create_shared_memory_segment(int size, int permissions);
+int create_shared_memory_segment(int key, int size, int permissions);
 
-char *attach_shared_memory_segment(int shmid);
+char *attach_shared_memory_segment(int key);
 
 int detach_shared_memory_segment(char *shm);
 
-int write_to_shared_memory_segment(char *shm, char *data);
+int write_config_to_shared_memory_segment(char *shm, struct config *config);
+
+int read_config_from_shared_memory_segment(char *shm, struct config *config);
 
 int cleanup_shared_memory_segment();
 
