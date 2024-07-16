@@ -25,8 +25,9 @@ main(){
     # create a shared memory segment key
     log "INFO" "starting promptorium configuration"
     # load promptorium configuration
-    promptorium --init
-    log "INFO" "promptorium configuration loaded"
+    promptorium debug --init && 
+    log "INFO" "promptorium configuration loaded" ||
+    log "ERROR" "promptorium configuration failed"
     # set prompt command
 }
 

@@ -7,16 +7,16 @@
 #include <sys/types.h>
 #include <time.h>
 
-int get_key_variable() {
+int get_ipc_key() {
     char *key = getenv("PROMPTORIUM_IPC_KEY");
     log_message(LOG_LEVEL_DEBUG, key);
     if (key == NULL) {
-        on_error("get_key_variable : getenv",
+        throw_error("get_ipc_key : getenv",
                  "Failed to get shared memory key from environment variable");
     }
     int key_int = atoi(key);
     if (key_int == 0) {
-        on_error("get_key_variable : atoi",
+        throw_error("get_ipc_key : atoi",
                  "Failed to convert shared memory key from environment variable");
     }
     return key_int;
@@ -61,7 +61,7 @@ int log_info(char *message) { return log_message(LOG_LEVEL_INFO, message); }
 int log_error(char *function_name, char *message) {
     char *message_string = malloc(strlen(function_name) + strlen(message) + 2);
     if (message_string == NULL) {
-        on_error("log_debug : malloc", "Failed to allocate memory for message string");
+        throw_error("log_debug : malloc", "Failed to allocate memory for message string");
         return 1;
     }
     sprintf(message_string, "%s: %s", function_name, message);
@@ -75,7 +75,7 @@ int log_warning(char *message) { return log_message(LOG_LEVEL_WARNING, message);
 int log_debug(char *function_name, char *message) {
     char *message_string = malloc(strlen(function_name) + strlen(message) + 2);
     if (message_string == NULL) {
-        on_error("log_debug : malloc", "Failed to allocate memory for message string");
+        throw_error("log_debug : malloc", "Failed to allocate memory for message string");
         return 1;
     }
     sprintf(message_string, "%s: %s", function_name, message);

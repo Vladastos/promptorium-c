@@ -16,7 +16,7 @@ void get_config_from_file(struct config *default_config) {
     FILE *fp = fopen(CONFIG_FILE_PATH, "r");
 
     if (fp == NULL) {
-        on_error("read_config_from_file : fopen", "Failed to open config file");
+        throw_error("read_config_from_file : fopen", "Failed to open config file");
     } else {
         // read the config
         char line[1024];
@@ -42,11 +42,14 @@ int init_config() {
     // TODO: load configuration from file
     get_config_from_file(&default_config);
 
+    log_debug("init_config", "Creating shared memory segment");
+    create_shared_memory_segment(get_ipc_key(), sizeof(struct config), IPC_CREAT | IPC_EXCL | 0600);
+    
     // write the config to the shared memory segment
 
     log_debug("init_config", "Writing config to shared memory segment");
 
-    write_config_to_shared_memory_segment(get_key_variable(), &default_config);
+    write_config_to_shared_memory_segment(get_ipc_key(), &default_config);
 
     return 0;
 }

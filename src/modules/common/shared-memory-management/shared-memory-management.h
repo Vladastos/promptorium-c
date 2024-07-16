@@ -12,8 +12,8 @@ void create_shared_memory_segment(int ipc_key, int ipc_size, int permissions);
 
 int cleanup_shared_memory_segment();
 
-char *attach_shared_memory_segment(int ipc_key);
+char *_attach_shared_memory_segment(int ipc_key);
 
-int detach_shared_memory_segment(char *shm);
+int _detach_shared_memory_segment(char *shm);
 
 #endif

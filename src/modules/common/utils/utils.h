@@ -5,7 +5,7 @@
 
 extern int debug_mode;
 
-int get_key_variable();
+int get_ipc_key();
 
 int log_message(int level, const char *message);
 
