@@ -8,7 +8,7 @@
 #include <time.h>
 
 int get_ipc_key() {
-    char *key = getenv("PROMPTORIUM_IPC_KEY");
+    char *key = getenv(IPC_KEY_VARIABLE_NAME);
     log_message(LOG_LEVEL_DEBUG, key);
     if (key == NULL) {
         throw_error("get_ipc_key : getenv",

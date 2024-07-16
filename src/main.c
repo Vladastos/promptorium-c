@@ -38,8 +38,7 @@ int parse_args(int argc, char *argv[]) {
         }
 
         if (strcmp(argv[i], "-p") == 0 || strcmp(argv[i], "--prompt") == 0) {
-            char *prompt = get_prompt();
-            printf("%s", prompt);
+            print_prompt();
             return 0;
         }
 

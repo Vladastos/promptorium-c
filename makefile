@@ -19,7 +19,7 @@ run:
 
 build:
 	if [ -f $(BIN_DIR)/$(BIN) ]; then rm -rf $(BIN_DIR)/$(BIN); fi
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(BIN) $(SRC) $(MODULES_DIR)/*/*/*.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(BIN) $(SRC) $(MODULES_DIR)/*/*/*.c $(MODULES_DIR)/*/*/*.h 
 
 lint:
 	$(CC) $(CFLAGS) -fsyntax-only  $(SRC)

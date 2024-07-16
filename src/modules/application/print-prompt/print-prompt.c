@@ -1,8 +1,10 @@
-#include "get-prompt.h"
+#include "print-prompt.h"
 
-char *get_prompt() {
+
+char *print_prompt() {
+
     struct config config;
-
+    
     log_debug("get_prompt", "Reading config from shared memory");
     
     int ipc_key = get_ipc_key();
@@ -10,6 +12,10 @@ char *get_prompt() {
     read_config_from_shared_memory_segment(ipc_key, &config);
 
     // TODO: return the prompt
-    
-    return " > $ ";
+    char *prompt = _build_prompt(config);
+    printf("%s", prompt);
+
+    free(prompt);
+
+    return 0;
 }

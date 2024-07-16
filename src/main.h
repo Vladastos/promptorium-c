@@ -1,15 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
+#ifndef MAIN_H
+#define MAIN_H
 #include "modules/application/application-modules.h"
 #include "modules/common/common-modules.h"
 
 int debug_mode = 0;
 
 int main(int argc, char *argv[]);
+
+#endif

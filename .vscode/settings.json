@@ -11,7 +11,10 @@
     "common-modules.h": "c",
     "utils.h": "c",
     "shared-memory-management.h": "c",
-    "definitions.h": "c"
+    "definitions.h": "c",
+    "get-prompt.h": "c",
+    "application-modules.h": "c",
+    "ipc.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

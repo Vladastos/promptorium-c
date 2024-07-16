@@ -90,3 +90,9 @@
 [2024-07-16 14:17:50] [INFO] ipc key generated: 7818050625 
 [2024-07-16 14:17:50] [INFO] starting promptorium configuration
 [2024-07-16 14:17:50] [ERROR] promptorium configuration failed
+[2024-07-16 14:25:47] [INFO] removing shared memory segment for promptorium configuration 6506250000
+[2024-07-16 14:26:38] [INFO] removing shared memory segment for promptorium configuration 7818050625
+[2024-07-16 14:26:44] [INFO] removing shared memory segment for promptorium configuration 220
+[2024-07-16 17:13:33] [INFO] ipc key generated: 6356635601 
+[2024-07-16 17:13:33] [INFO] starting promptorium configuration
+[2024-07-16 17:13:33] [INFO] promptorium configuration loaded
