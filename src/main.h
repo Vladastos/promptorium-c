@@ -1,6 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
-#include "modules/application/application-modules.h"
+#include "modules/application/application.h"
 #include "modules/common/common-modules.h"
 #include "modules/common/utils/definitions.h"
 

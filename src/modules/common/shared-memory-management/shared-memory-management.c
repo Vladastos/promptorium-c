@@ -59,6 +59,7 @@ int $memory_cleanup_segment() {
     }
     return 0;
 }
+
 char *_memory_attach_segment(int ipc_key) {
     // attach the shared memory segment
     $log_debug("attach_shared_memory_segment", "Attaching shared memory segment");

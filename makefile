@@ -19,13 +19,13 @@ run:
 
 build:
 	if [ -f $(BIN_DIR)/$(BIN) ]; then rm -rf $(BIN_DIR)/$(BIN); fi
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(BIN) $(SRC) $(MODULES_DIR)/*/*/*.c $(MODULES_DIR)/*/*/*.h 
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(BIN) $(SRC) $(MODULES_DIR)/*/*/*.c $(MODULES_DIR)/*/*/*.h $(MODULES_DIR)/*/*.c $(MODULES_DIR)/*/*.h
 
 lint:
 	$(CC) $(CFLAGS) -fsyntax-only  $(SRC)
 
 format:
-	clang-format -i $(SRC_DIR)/*.c $(SRC_DIR)/*.h  $(MODULES_DIR)/*/*.h $(MODULES_DIR)/*/*/*.c $(MODULES_DIR)/*/*/*.h
+	clang-format -i $(SRC_DIR)/*.c $(SRC_DIR)/*.h  $(MODULES_DIR)/*/*.h $(MODULES_DIR)/*/*.c $(MODULES_DIR)/*/*/*.c $(MODULES_DIR)/*/*/*.h
 
 clean:
 	rm -rf $(BIN_DIR)/*
