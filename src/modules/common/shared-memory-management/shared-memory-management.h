@@ -12,8 +12,4 @@ void $memory_create_segment(int ipc_key, int ipc_size, int permissions);
 
 int $memory_cleanup_segment();
 
-char *_memory_attach_segment(int ipc_key);
-
-int _memory_detach_segment(char *shm);
-
 #endif

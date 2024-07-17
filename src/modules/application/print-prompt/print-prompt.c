@@ -14,5 +14,9 @@ char *print_prompt() {
 
     // TODO: return the prompt
 
+    char *prompt = _build_prompt();
+
+    $log_debug(DEBUG_LEVEL_MAX, "get_prompt", "Prompt: %s", prompt);
+    printf("%s", prompt);
     return 0;
 }

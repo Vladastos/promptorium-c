@@ -33,7 +33,7 @@ char *_build_directory_module() {
         if (errno != ERANGE) {
             free(cwd);
             $throw_error("build_directory_module : getcwd",
-                        "Failed to get current working directory");
+                         "Failed to get current working directory");
             return NULL;
         }
         size *= 2;

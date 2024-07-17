@@ -10,5 +10,4 @@ char *$log_file_path = LOG_FILE_PATH;
 
 int main(int argc, char *argv[]);
 
-
 #endif

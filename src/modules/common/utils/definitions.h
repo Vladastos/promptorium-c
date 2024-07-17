@@ -19,8 +19,6 @@
 #define LOG_FILE_DIR "/home/vlad/Documents/promptorium-c/shell"
 #define LOG_FILE_PATH LOG_FILE_DIR "/" LOG_FILE_NAME
 
-
-
 #define IPC_KEY_VARIABLE_NAME "PROMPTORIUM_IPC_KEY"
 
 #define CONFIG_FILE_NAME "promptorium.conf"
