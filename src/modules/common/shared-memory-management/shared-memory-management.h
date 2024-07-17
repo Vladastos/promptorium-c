@@ -4,9 +4,9 @@
 #include "../common-modules.h"
 #include "../utils/definitions.h"
 
-int $memory_write_segment(int ipc_key, struct config *config);
+int $memory_write_segment(int ipc_key, struct config_t *config);
 
-int $memory_read_segment(int ipc_key, struct config *config);
+int $memory_read_segment(int ipc_key, struct config_t *config);
 
 void $memory_create_segment(int ipc_key, int ipc_size, int permissions);
 

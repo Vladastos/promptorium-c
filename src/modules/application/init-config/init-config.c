@@ -2,19 +2,19 @@
 
 int init_config() {
 
-    struct config default_config = _get_default_config();
+    struct config_t default_config = _get_default_config();
 
     _get_config_from_file(&default_config);
 
-    $memory_create_segment($get_ipc_key(), sizeof(struct config), IPC_CREAT | IPC_EXCL | 0600);
+    $memory_create_segment($get_ipc_key(), sizeof(struct config_t), IPC_CREAT | IPC_EXCL | 0600);
 
     $memory_write_segment($get_ipc_key(), &default_config);
 
     return 0;
 }
 
-struct config _get_default_config() {
-    struct config default_config = {.SHOW_GIT_STATUS = 1,
+struct config_t _get_default_config() {
+    struct config_t default_config = {.SHOW_GIT_STATUS = 1,
                                     .SHOW_HOST = 1,
                                     .SHOW_HOME_ICON = 1,
                                     .SHOW_BOOKMARK_ICON = 1,
@@ -23,7 +23,7 @@ struct config _get_default_config() {
     return default_config;
 }
 
-void _get_config_from_file(struct config *default_config) {
+void _get_config_from_file(struct config_t *default_config) {
     FILE *fp = fopen(CONFIG_FILE_PATH, "r");
 
     if (fp == NULL) {
@@ -43,7 +43,7 @@ void _get_config_from_file(struct config *default_config) {
     return;
 }
 
-void _parse_config_line(char *line, struct config *config) {
+void _parse_config_line(char *line, struct config_t *config) {
 
     char *key = strtok(line, "=");
     char *value = strtok(NULL, "\n");

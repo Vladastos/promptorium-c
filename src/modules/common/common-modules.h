@@ -18,7 +18,8 @@
 #include <unistd.h>
 
 #include "shared-memory-management/shared-memory-management.h"
-#include "status-handling/status-handling.h"
+#include "error-management/error-management.h"
+#include "log-management/log-management.h"
 #include "utils/definitions.h"
 #include "utils/utils.h"
 

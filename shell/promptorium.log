@@ -1,1 +1,32 @@
-
+sasdf[ 2024-07-17 17:04:11 ] [ DEBUG ] _parse_global_args : Starting in debug mode 
+[ 2024-07-17 17:04:11 ] [ ERROR ] $get_ipc_key : getenv : Failed to get shared memory key from environment variable 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] _parse_global_args : Starting in deep debug mode 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] debug_args : Arguments: 2 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] debug_args : Arg 0: promptorium 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] debug_args : Arg 1: init 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] _debug_config : Config after parsing:  
+[ 2024-07-17 17:04:17 ] [ DEBUG ] _debug_config : SHOW_GIT_STATUS: 1 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] _debug_config : SHOW_HOST: 1 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] _debug_config : SHOW_HOME_ICON: 1 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] _debug_config : SHOW_BOOKMARK_ICON: 0 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] _debug_config : SHOW_EXIT_ICON: 0 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] _debug_config : SHOW_TIME: 0 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] $get_ipc_key : Getting IPC key from environment variable 
+[ 2024-07-17 17:04:17 ] [ DEBUG ] $get_ipc_key : IPC key: (null) 
+[ 2024-07-17 17:04:17 ] [ ERROR ] $get_ipc_key : getenv : Failed to get shared memory key from environment variable 
+[ 2024-07-17 17:04:21 ] [ DEBUG ] _parse_global_args : Starting in debug mode 
+[ 2024-07-17 17:04:21 ] [ ERROR ] $get_ipc_key : getenv : Failed to get shared memory key from environment variable 
+[ 2024-07-17 17:06:11 ] [ DEBUG ] _parse_global_args : Starting in debug mode 
+[ 2024-07-17 17:06:11 ] [ ERROR ] parse_command : Command not found 
+[ 2024-07-17 17:06:58 ] [ DEBUG ] _parse_global_args : Starting in debug mode 
+[ 2024-07-17 17:06:58 ] [ ERROR ] parse_command : Command not found 
+[ 2024-07-17 17:07:06 ] [ DEBUG ] _parse_global_args : Starting in debug mode 
+[ 2024-07-17 17:07:06 ] [ ERROR ] parse_command : Command not found 
+[ 2024-07-17 17:10:59 ] [ DEBUG ] _parse_global_args : Starting in debug mode 
+[ 2024-07-17 17:10:59 ] [ ERROR ] parse_command : Command not found 
+[ 2024-07-17 17:11:31 ] [ DEBUG ] _parse_global_args : Starting in debug mode 
+[ 2024-07-17 17:11:31 ] [ ERROR ] parse_command : Command  not found 
+[ 2024-07-17 17:11:48 ] [ DEBUG ] _parse_global_args : Starting in debug mode 
+[ 2024-07-17 17:11:48 ] [ ERROR ] parse_command : Command  not found 
+[ 2024-07-17 17:14:20 ] [ DEBUG ] _parse_global_args : Starting in debug mode 
+[ 2024-07-17 17:14:20 ] [ ERROR ] parse_command : Command sd not found 

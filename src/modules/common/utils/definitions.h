@@ -27,9 +27,8 @@
 #define CONFIG_FILE_DIR "/home/vlad/Documents/promptorium-c/conf"
 #define CONFIG_FILE_PATH CONFIG_FILE_DIR "/" CONFIG_FILE_NAME
 
-
 // Structures
-struct config {
+struct config_t {
     int SHOW_GIT_STATUS;
     int SHOW_HOST;
     int SHOW_HOME_ICON;

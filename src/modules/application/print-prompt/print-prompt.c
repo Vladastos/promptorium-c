@@ -2,7 +2,7 @@
 
 char *print_prompt() {
 
-    struct config config;
+    struct config_t config;
 
     $log_debug(DEBUG_LEVEL_MAX, "get_prompt", "Reading config from shared memory");
 

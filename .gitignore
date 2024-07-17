@@ -58,3 +58,6 @@ dkms.conf
 
 # editors
 .vscode
+
+#logs
+*.log

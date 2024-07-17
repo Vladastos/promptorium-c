@@ -13,7 +13,7 @@ int run_application(int argc, char *argv[]) {
     
     _parse_command(argc, argv);
 
-    $throw_error("run_application", "Command not found");
+    $throw_error("run_application", "Command %s not found", argv[1]);
     
     return 0;
 }
@@ -37,7 +37,7 @@ void _parse_command(int argc, char *argv[]) {
             exit(0);
         }
     _print_help();
-    $throw_error("parse_command", "Command not found");
+    $throw_error("parse_command", "Command %s not found", argv[1]);
     }
 
     return;
@@ -100,6 +100,7 @@ void _print_help() {
     printf("  -h, --help       Print this help message\n");
     printf("  -v, --version    Print the version\n");
     printf("  -d, --debug      Start in debug mode\n");
+    printf("  -dd, --deep-debug Start in deep debug mode\n");
     printf("\n");
     return ;
 }
