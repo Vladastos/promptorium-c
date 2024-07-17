@@ -6,7 +6,7 @@ int init_config() {
 
     _get_config_from_file(&default_config);
 
-    $memory_create_segment($get_ipc_key(), sizeof(struct config_t), IPC_CREAT | IPC_EXCL | 0600);
+    $memory_create_segment($get_ipc_key(), sizeof(struct config_t), IPC_CREAT | 0600);
 
     $memory_write_segment($get_ipc_key(), &default_config);
 

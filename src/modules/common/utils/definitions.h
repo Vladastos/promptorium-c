@@ -35,6 +35,8 @@ struct config_t {
     int SHOW_BOOKMARK_ICON;
     int SHOW_EXIT_ICON;
     int SHOW_TIME;
+    int SHOW_DATE;
+    int GIT_AUTO_FETCH;
 };
 
 #endif

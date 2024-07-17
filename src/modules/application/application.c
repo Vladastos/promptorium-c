@@ -4,8 +4,9 @@
 int run_application(int argc, char *argv[]) {
 
     if (argc == 1) {
-        _print_help();
-        return 0;
+        printf("promptorium : no command provided\n");
+        printf("Try 'promptorium --help' for more information\n");
+        return 1;
     }
 
     // parse the global command line arguments before parsing the command and its arguments
@@ -36,6 +37,7 @@ void _parse_command(int argc, char *argv[]) {
             $memory_cleanup_segment();
             exit(0);
         }
+
     _print_help();
     $throw_error("parse_command", "Command %s not found", argv[1]);
     }
@@ -93,7 +95,7 @@ void _print_version(){
 void _print_help() {
     printf("Usage: promptorium <command> [options]\n");
     printf("Commands:\n");
-    printf("  init             Load config into shared memory\n");
+    printf("  init             Load (or reload) config into shared memory\n");
     printf("  prompt           Print the prompt\n");
     printf("  cleanup          Clean up the shared memory\n");
     printf("Options:\n");
@@ -101,6 +103,5 @@ void _print_help() {
     printf("  -v, --version    Print the version\n");
     printf("  -d, --debug      Start in debug mode\n");
     printf("  -dd, --deep-debug Start in deep debug mode\n");
-    printf("\n");
     return ;
 }

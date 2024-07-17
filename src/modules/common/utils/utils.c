@@ -38,7 +38,6 @@ void $debug_args(int argc, char *argv[]) {
     for (int i = 0; argv[i] != NULL; i++) {
         $log_debug(DEBUG_LEVEL_MAX,"debug_args", "Arg %d: %s", i, argv[i]);
     }
-    printf("\n");
     return;
 }
 

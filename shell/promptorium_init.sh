@@ -2,8 +2,7 @@
 PROMPTORIUM_LOG_DIR=/home/vlad/Documents/promptorium-c/shell
 
 generate_ipc_key() {
-    #generate a 16 digit random number
-    echo $(( $RANDOM ** 4 % 10000000000 ))
+    echo $(cat /dev/urandom | tr -dc '0-9' | fold -w 9 | head -n 1)
 }
 
 log(){
