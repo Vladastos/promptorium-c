@@ -16,7 +16,9 @@ log(){
 cleanup(){
     log "INFO" "removing shared memory segment for promptorium configuration $PROMPTORIUM_IPC_KEY"
     # remove shared memory segment
-    promptorium --cleanup
+    promptorium cleanup --debug &&
+    log "INFO" "shared memory segment removed" ||
+    log "ERROR" "failed to remove shared memory segment"
 }
 
 main(){
@@ -25,7 +27,7 @@ main(){
     # create a shared memory segment key
     log "INFO" "starting promptorium configuration"
     # load promptorium configuration
-    promptorium debug --init && 
+    promptorium init --debug && 
     log "INFO" "promptorium configuration loaded" ||
     log "ERROR" "promptorium configuration failed"
     # set prompt command

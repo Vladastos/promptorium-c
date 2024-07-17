@@ -7,6 +7,6 @@
 
 #include "../utils/utils.h"
 
-void throw_error(char *function_name, char *message);
+void $throw_error(char *function_name, char *message);
 
 #endif

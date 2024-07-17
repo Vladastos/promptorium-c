@@ -1,6 +1,6 @@
 
 CC = gcc
-CFLAGS = -g -Wall -fanalyzer
+CFLAGS = -g -Wall -fanalyzer -Werror -Wpedantic -Wextra
 BUILD_DIR = build
 BIN_DIR = $(BUILD_DIR)/bin
 BIN = promptorium

@@ -4,7 +4,7 @@ char *print_prompt() {
 
     struct config config;
 
-    $log_debug("get_prompt", "Reading config from shared memory");
+    $log_debug(DEBUG_LEVEL_MAX, "get_prompt", "Reading config from shared memory");
 
     int ipc_key = $get_ipc_key();
 

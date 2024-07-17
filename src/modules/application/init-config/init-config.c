@@ -1,5 +1,18 @@
 #include "init-config.h"
 
+int init_config() {
+
+    struct config default_config = _get_default_config();
+
+    _get_config_from_file(&default_config);
+
+    $memory_create_segment($get_ipc_key(), sizeof(struct config), IPC_CREAT | IPC_EXCL | 0600);
+
+    $memory_write_segment($get_ipc_key(), &default_config);
+
+    return 0;
+}
+
 struct config _get_default_config() {
     struct config default_config = {.SHOW_GIT_STATUS = 1,
                                     .SHOW_HOST = 1,
@@ -11,17 +24,14 @@ struct config _get_default_config() {
 }
 
 void _get_config_from_file(struct config *default_config) {
-
-    $log_debug("get_config_from_file", CONFIG_FILE_PATH);
     FILE *fp = fopen(CONFIG_FILE_PATH, "r");
 
     if (fp == NULL) {
-        throw_error("read_config_from_file : fopen", "Failed to open config file");
+        $throw_error("read_config_from_file : fopen", "Failed to open config file");
     } else {
         // read the config
         char line[1024];
         while (fgets(line, 1024, fp) != NULL) {
-            // TODO: parse the config
             _parse_config_line(line, default_config);
         }
         // close the file
@@ -71,28 +81,4 @@ void _parse_config_line(char *line, struct config *config) {
     }
 
     return;
-}
-
-int init_config() {
-
-    $log_debug("init_config", "Initializing config");
-
-    struct config default_config = _get_default_config();
-
-    $log_debug("get_config_from_file", "Reading config from file");
-
-    // TODO: load configuration from file
-    _get_config_from_file(&default_config);
-
-    $log_debug("init_config", "Creating shared memory segment");
-
-    $memory_create_segment($get_ipc_key(), sizeof(struct config), IPC_CREAT | IPC_EXCL | 0600);
-
-    // write the config to the shared memory segment
-
-    $log_debug("init_config", "Writing config to shared memory segment");
-
-    $memory_write_segment($get_ipc_key(), &default_config);
-
-    return 0;
 }
