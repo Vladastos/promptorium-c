@@ -9,4 +9,6 @@
 
 void $throw_error(char *function_name, char *message, ...);
 
+void $at_exit_handler();
+
 #endif

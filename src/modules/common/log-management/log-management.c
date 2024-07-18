@@ -37,6 +37,13 @@ int $log_message(int log_level, char *message, va_list args) {
     // TODO: log to syslog
 
     // log to file
+    if ($log_file_path == NULL) {
+        return -1;
+    }
+    if (log_level == LOG_LEVEL_DEBUG) {
+        return 0;
+    }
+
     FILE *log_file = fopen($log_file_path, "a");
     if (log_file == NULL) {
         return -1;
