@@ -9,6 +9,7 @@ static struct config_t _get_default_config() {
                                       .SHOW_TIME = 1};
     return default_config;
 }
+
 static void _parse_config_line(char *line, struct config_t *config) {
 
     char *key = strtok(line, "=");

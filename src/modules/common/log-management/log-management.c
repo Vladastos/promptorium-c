@@ -19,7 +19,6 @@ static char *_get_level_string(int level) {
 int $log_message(int log_level, char *message, va_list args) {
 
     char *log_level_string = _get_level_string(log_level);
-
     char assembled_message[256];
     vsnprintf(assembled_message, 256, message, args);
     va_end(args);
