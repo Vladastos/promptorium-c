@@ -1,5 +1,21 @@
 #include "shared-memory-management.h"
 
+int $get_ipc_key() {
+    char *key = getenv(IPC_KEY_VARIABLE_NAME);
+    $log_debug(DEBUG_LEVEL_MAX, "$get_ipc_key", "Getting IPC key from environment variable");
+    $log_debug(DEBUG_LEVEL_MAX, "$get_ipc_key", "IPC key: %s", key);
+    if (key == NULL) {
+        $throw_error("$get_ipc_key : getenv",
+                     "Failed to get shared memory key from environment variable");
+    }
+    int key_int = atoi(key);
+    if (key_int == 0) {
+        $throw_error("$get_ipc_key : atoi",
+                     "Failed to convert shared memory key from environment variable");
+    }
+    return key_int;
+}
+
 static int _memory_detach_segment(char *shm) {
     // detach the shared memory segment
     $log_debug(DEBUG_LEVEL_MAX, "detach_shared_memory_segment",

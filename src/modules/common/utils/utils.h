@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "../common-modules.h"
-#include "definitions.h"
+#include "../utils/definitions.h"
 
 extern int $debug_level;
 

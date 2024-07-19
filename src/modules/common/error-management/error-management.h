@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../utils/definitions.h"
 #include "../utils/utils.h"
 
 void $throw_error(char *function_name, char *message, ...);

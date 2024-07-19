@@ -31,7 +31,8 @@
 
 #define MAX_MODULES 10
 #define MAX_CONTAINERS 10
-#define AVAILABLE_MODULES {"os_icon", "username","hostname","cwd","git","time","exit_status"} 
+#define AVAILABLE_MODULES \
+    {"os_icon", "username", "hostname", "cwd", "git", "time", "exit_status"}
 #define AVAILABLE_MODULES_LENGTH 7
 
 // Defaults styles
@@ -67,7 +68,6 @@ struct global_style_t {
 struct module_style_t {
     struct color_t *background_color;
     struct color_t *foreground_color;
-
 };
 
 struct icon_style_t {
@@ -94,7 +94,7 @@ struct container_style_t {
 struct promptorium_container_t {
     char *name;
     struct container_style_t *style;
-    char *modules[MAX_MODULES];
+    struct module_t *modules[MAX_MODULES];
     char *modules_separator;
 };
 
@@ -102,7 +102,7 @@ struct config_t {
     char *version;
     struct global_style_t *global_style;
     struct promptorium_container_t *containers[MAX_CONTAINERS];
-    struct module_t *modules[AVAILABLE_MODULES_LENGTH]; 
+    struct module_t *modules[AVAILABLE_MODULES_LENGTH];
 };
 
 #endif

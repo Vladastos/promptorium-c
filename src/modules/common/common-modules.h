@@ -20,11 +20,11 @@
 #include "error-management/error-management.h"
 #include "log-management/log-management.h"
 #include "shared-memory-management/shared-memory-management.h"
-#include "definitions.h"
 #include "utils/utils.h"
+#include "utils/definitions.h"
 #include "colors/colors.h"
 
 // Libraries
-#include "../../../../lib/cjson/cJSON.h"
+#include "lib/cjson/cJSON.h"
 
 #endif

@@ -14,14 +14,9 @@
 		"warning_color" : "yellow",
 		"error_color" : "red"
 	},
-	"containers" : {
-		"container_order": [
-			"os_icon_container",
-			"main_container",
-			"cwd_container",
-			"status_container"
-		],
-		"os_icon_container" : {
+	"containers" : [
+		{
+			"name" : "os_icon_container",
 			"modules": [
 				"os_icon"
 			],
@@ -32,7 +27,8 @@
 				"end_divider": " "
 			}
 		},
-		"main_container" :{
+		{
+			"name" : "user_container",
 			"modules": [
 				"user",
 				"hostname"
@@ -42,13 +38,15 @@
 				"foreground" : "black"
 			}
 		},
-		"cwd_container" :{
+		{
+			"name" : "cwd_container",
 			 "modules": [
 				"cwd",
 				"git"
 			]
 		},
-		"status_container" : {
+		{
+			"name" : "exit_container",
 			"modules": [
 				"time",
 				"status",
@@ -59,7 +57,7 @@
 			}
 		}
 	
-	},
+	],
 	"modules" : {
 		"os_icon" : {
 			"icon": "",

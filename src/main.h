@@ -2,7 +2,7 @@
 #define MAIN_H
 #include "modules/application/application.h"
 #include "modules/common/common-modules.h"
-#include "modules/common/definitions.h"
+#include "modules/common/utils/definitions.h"
 
 int $debug_level = DEBUG_LEVEL_OFF;
 

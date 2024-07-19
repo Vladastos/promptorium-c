@@ -2,7 +2,9 @@
 #define SHARED_MEMORY_MANAGEMENT_H
 
 #include "../common-modules.h"
-#include "../definitions.h"
+#include "../utils/definitions.h"
+
+int $get_ipc_key();
 
 int $memory_write_segment(int ipc_key, struct config_t *config);
 

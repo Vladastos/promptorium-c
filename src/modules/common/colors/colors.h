@@ -1,7 +1,7 @@
 #ifndef COLORS_H
 #define COLORS_H
 
-#include "definitions.h"
+#include "../utils/definitions.h"
 
 static struct color_t COLOR_BLACK = {"\033[30m", "\033[40m"};
 static struct color_t COLOR_RED = {"\033[31m", "\033[41m"};
@@ -20,4 +20,7 @@ static struct color_t *DEFAULT_QUATERNARY_COLOR = &COLOR_CYAN;
 static struct color_t *DEFAULT_SUCCESS_COLOR = &COLOR_GREEN;
 static struct color_t *DEFAULT_WARNING_COLOR = &COLOR_YELLOW;
 static struct color_t *DEFAULT_ERROR_COLOR = &COLOR_RED;
+
+static struct color_t *DEFAULT_BACKGROUND_COLOR = &COLOR_BLACK;
+static struct color_t *DEFAULT_FOREGROUND_COLOR = &COLOR_WHITE;
 #endif
