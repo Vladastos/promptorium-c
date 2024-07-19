@@ -70,6 +70,25 @@ static void _get_config_from_file(struct config_t *default_config) {
     return;
 }
 
+static char *read_json_file(char *file_path) {
+    FILE *fp = fopen(file_path, "r");
+    if (fp == NULL) {
+        return NULL;
+    }
+    fseek(fp, 0, SEEK_END);
+    long length = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    char *buffer = malloc(length + 1);
+    if (buffer == NULL) {
+        fclose(fp);
+        return NULL;
+    }
+    fread(buffer, 1, length, fp);
+    fclose(fp);
+    buffer[length] = '\0';
+    return buffer;
+}
+
 int init_config() {
 
     struct config_t default_config = _get_default_config();

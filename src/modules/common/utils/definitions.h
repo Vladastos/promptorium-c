@@ -21,7 +21,7 @@
 
 #define IPC_KEY_VARIABLE_NAME "PROMPTORIUM_IPC_KEY"
 
-#define CONFIG_FILE_NAME "promptorium.conf"
+#define CONFIG_FILE_NAME "promptorium.conf.json"
 #define CONFIG_FILE_DIR "/home/vlad/Documents/promptorium-c/conf"
 #define CONFIG_FILE_PATH CONFIG_FILE_DIR "/" CONFIG_FILE_NAME
 

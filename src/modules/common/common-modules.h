@@ -14,6 +14,7 @@
 #include <sys/shm.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <json-c/json.h>
 #include <time.h>
 #include <unistd.h>
 

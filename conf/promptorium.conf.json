@@ -1,0 +1,28 @@
+{	
+	"show_home_icon" :true,
+	"show_folder_icon" : true,
+	"theme" : "default",
+	"style" : {
+		"container_start_divider" : "",
+		"container_end_divider" : "",
+		"container_padding" : " ",
+		"container_separator": "─",
+		"module_separator" : "",
+		"module_padding" : " ",
+	},
+	"module_containers" : {
+		"left_side_container" :[
+			"username",
+			"hostname"
+		],
+		"middle_container" : [
+			"cwd",
+			"git"
+		],
+		"right_side_container" : [
+			"time",
+			"status",
+			"exit"
+		]
+	},
+}
