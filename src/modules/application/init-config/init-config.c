@@ -17,17 +17,17 @@ static struct module_t *__get_default_modules() {
                            .icon_style = &default_icon_style};
 
     struct module_t os_icon = {.name = "os_icon",
-                               .icon = "",
+                               .icon = "⚙",
                                .style = &default_module_style,
                                .icon_style = &default_icon_style};
 
     struct module_t hostname = {.name = "hostname",
-                                .icon = "",
+                                .icon = "󰇅",
                                 .style = &default_module_style,
                                 .icon_style = &default_icon_style};
 
     struct module_t git = {.name = "git",
-                           .icon = "",
+                           .icon = "",
                            .style = &default_module_style,
                            .icon_style = &default_icon_style};
 
@@ -37,7 +37,7 @@ static struct module_t *__get_default_modules() {
                             .icon_style = &default_icon_style};
 
     struct module_t exit_status = {.name = "exit_status",
-                                   .icon = "",
+                                   .icon = "",
                                    .style = &default_module_style,
                                    .icon_style = &default_icon_style};
 
@@ -119,9 +119,12 @@ static struct config_t _get_default_config() {
                                                      .modules = exit_container_modules,
                                                      .style = &default_container_style};
 
+    struct promptorium_container_t containers[] = {user_container, cwd_container,
+                                                   exit_container};
+
     struct config_t default_config = {
         .version = PROMPTORIUM_VERSION,
-        .containers = &user_container,
+        .containers = containers,
         .global_style = &default_global_style,
         .modules = modules,
 
@@ -171,6 +174,7 @@ static void _get_config_from_file() {
 int init_config() {
 
     struct config_t default_config = _get_default_config();
+
     $debug_config(&default_config);
 
     _get_config_from_file();
