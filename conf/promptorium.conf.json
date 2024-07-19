@@ -1,28 +1,91 @@
 {	
-	"show_home_icon" :true,
-	"show_folder_icon" : true,
-	"theme" : "default",
 	"style" : {
 		"container_start_divider" : "",
 		"container_end_divider" : "",
 		"container_padding" : " ",
-		"container_separator": "─",
+		"container_spacer": "─",
 		"module_separator" : "",
 		"module_padding" : " ",
+		"primary_color" : "blue",
+		"secondary_color" : "green",
+		"tertiary_color" : "yellow",
+		"quaternary_color" : "violet",
+		"success_color" : "green",
+		"warning_color" : "yellow",
+		"error_color" : "red"
 	},
-	"module_containers" : {
-		"left_side_container" :[
-			"username",
-			"hostname"
+	"containers" : {
+		"container_order": [
+			"os_icon_container",
+			"main_container",
+			"cwd_container",
+			"status_container"
 		],
-		"middle_container" : [
-			"cwd",
-			"git"
-		],
-		"right_side_container" : [
-			"time",
-			"status",
-			"exit"
-		]
+		"os_icon_container" : {
+			"modules": [
+				"os_icon"
+			],
+			"style"	: {
+				"background": "none",
+				"foreground": "black",
+				"start_divider": " ",
+				"end_divider": " "
+			}
+		},
+		"main_container" :{
+			"modules": [
+				"user",
+				"hostname"
+			],
+			"style" : {
+				"background" : "primary",
+				"foreground" : "black"
+			}
+		},
+		"cwd_container" :{
+			 "modules": [
+				"cwd",
+				"git"
+			]
+		},
+		"status_container" : {
+			"modules": [
+				"time",
+				"status",
+				"exit"
+			],
+			"style" : {
+				"background": "none"
+			}
+		}
+	
 	},
+	"modules" : {
+		"os_icon" : {
+			"icon": "",
+			"style" : {
+				"background_color": "none",
+				"foreground_color": "primary"
+			}
+		},
+		"user" : {
+			"icon" : "",
+			"style" : {
+				"background_color": "primary",
+				"foreground_color": "black"
+			}
+		},
+		"cwd":{
+			"icon": "",
+			"style" : {
+				"background_color": "none",
+				"foreground_color": "black"
+			},
+			"icon_style":{
+				"background_color":"primary",
+				"foreground_color":"black",
+				"icon_separator":""
+			}
+		}
+	}
 }

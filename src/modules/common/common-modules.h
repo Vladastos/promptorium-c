@@ -14,14 +14,17 @@
 #include <sys/shm.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <json-c/json.h>
 #include <time.h>
 #include <unistd.h>
 
 #include "error-management/error-management.h"
 #include "log-management/log-management.h"
 #include "shared-memory-management/shared-memory-management.h"
-#include "utils/definitions.h"
+#include "definitions.h"
 #include "utils/utils.h"
+#include "colors/colors.h"
+
+// Libraries
+#include "../../../../lib/cjson/cJSON.h"
 
 #endif

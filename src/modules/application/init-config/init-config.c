@@ -1,76 +1,38 @@
 #include "init-config.h"
 
 static struct config_t _get_default_config() {
-    struct config_t default_config = {.SHOW_GIT_STATUS = 1,
-                                      .SHOW_HOST = 1,
-                                      .SHOW_HOME_ICON = 1,
-                                      .SHOW_BOOKMARK_ICON = 1,
-                                      .SHOW_EXIT_ICON = 1,
-                                      .SHOW_TIME = 1};
+
+    struct global_style_t default_global_style = {
+        .container_start_divider = DEFAULT_CONTAINER_START_DIVIDER,
+        .container_end_divider = DEFAULT_CONTAINER_END_DIVIDER,
+        .container_padding = DEFAULT_CONTAINER_PADDING,
+        .container_spacer = DEFAULT_CONTAINER_SPACER,
+        .module_separator = DEFAULT_MODULE_SEPARATOR,
+        .module_padding = DEFAULT_MODULE_PADDING,
+        .primary_color = DEFAULT_PRIMARY_COLOR,
+        .secondary_color = DEFAULT_SECONDARY_COLOR,
+        .tertiary_color = DEFAULT_TERTIARY_COLOR,
+        .quaternary_color = DEFAULT_QUATERNARY_COLOR,
+        .success_color = DEFAULT_SUCCESS_COLOR,
+        .warning_color = DEFAULT_WARNING_COLOR,
+        .error_color = DEFAULT_ERROR_COLOR};
+    struct config_t default_config = {
+        .version = PROMPTORIUM_VERSION,
+        .global_style = &default_global_style,
+
+    };
     return default_config;
 }
 
-static void _parse_config_line(char *line, struct config_t *config) {
-
-    char *key = strtok(line, "=");
-    char *value = strtok(NULL, "\n");
-
-    if (key == NULL || value == NULL) {
+static void __debug_config_file(char *config_file_content) {
+    if ($debug_level < DEBUG_LEVEL_MAX) {
         return;
     }
-
-    key = $strtrim(key);
-    value = $strtrim(value);
-    if (strcmp(key, "SHOW_GIT_STATUS") == 0) {
-        if (strcmp(value, "0") == 0) {
-            config->SHOW_GIT_STATUS = 0;
-        }
-    } else if (strcmp(key, "SHOW_HOST") == 0) {
-        if (strcmp(value, "0") == 0) {
-            config->SHOW_HOST = 0;
-        }
-    } else if (strcmp(key, "SHOW_HOME_ICON") == 0) {
-        if (strcmp(value, "0") == 0) {
-            config->SHOW_HOME_ICON = 0;
-        }
-    } else if (strcmp(key, "SHOW_BOOKMARK_ICON") == 0) {
-        if (strcmp(value, "0") == 0) {
-            config->SHOW_BOOKMARK_ICON = 0;
-        }
-    } else if (strcmp(key, "SHOW_EXIT_ICON") == 0) {
-        if (strcmp(value, "0") == 0) {
-            config->SHOW_EXIT_ICON = 0;
-        }
-    } else if (strcmp(key, "SHOW_TIME") == 0) {
-        if (strcmp(value, "0") == 0) {
-            config->SHOW_TIME = 0;
-        }
-    }
-
-    return;
+    $log_debug(DEBUG_LEVEL_MAX, "__debug_config_file", "Config file content:");
+    printf("Config file content: %s\n", config_file_content);
 }
 
-static void _get_config_from_file(struct config_t *default_config) {
-    FILE *fp = fopen(CONFIG_FILE_PATH, "r");
-
-    if (fp == NULL) {
-        $throw_error("read_config_from_file : fopen", "Failed to open config file");
-    } else {
-        // read the config
-        char line[1024];
-        while (fgets(line, 1024, fp) != NULL) {
-            _parse_config_line(line, default_config);
-        }
-        // close the file
-        fclose(fp);
-    }
-
-    $debug_config(default_config);
-
-    return;
-}
-
-static char *read_json_file(char *file_path) {
+static char *__read_json_file(char *file_path) {
     FILE *fp = fopen(file_path, "r");
     if (fp == NULL) {
         return NULL;
@@ -78,6 +40,7 @@ static char *read_json_file(char *file_path) {
     fseek(fp, 0, SEEK_END);
     long length = ftell(fp);
     fseek(fp, 0, SEEK_SET);
+    $log_debug(DEBUG_LEVEL_MEDIUM, "__read_json_file", "File length: %ld", length);
     char *buffer = malloc(length + 1);
     if (buffer == NULL) {
         fclose(fp);
@@ -89,11 +52,21 @@ static char *read_json_file(char *file_path) {
     return buffer;
 }
 
+static void _get_config_from_file() {
+    char *config_file_path = CONFIG_FILE_PATH;
+    char *config_file_content = __read_json_file(config_file_path);
+    __debug_config_file(config_file_content);
+    if (config_file_content == NULL) {
+        $throw_error("_get_config_from_file : _read_json_file", "Failed to read config file");
+    }
+    free(config_file_content);
+}
+
 int init_config() {
 
     struct config_t default_config = _get_default_config();
 
-    _get_config_from_file(&default_config);
+    _get_config_from_file();
 
     $memory_create_segment($get_ipc_key(), sizeof(struct config_t), IPC_CREAT | 0600);
 

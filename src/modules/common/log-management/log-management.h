@@ -3,7 +3,7 @@
 #define LOG_MANAGEMENT_H
 
 #include "../common-modules.h"
-#include "../utils/definitions.h"
+#include "../definitions.h"
 
 int $log_message(int log_level, char *message, va_list args);
 

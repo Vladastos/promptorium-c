@@ -19,8 +19,8 @@ static char *_get_level_string(int level) {
 int $log_message(int log_level, char *message, va_list args) {
 
     char *log_level_string = _get_level_string(log_level);
-    char assembled_message[256];
-    vsnprintf(assembled_message, 256, message, args);
+    char assembled_message[512];
+    vsnprintf(assembled_message, 512, message, args);
     va_end(args);
 
     // get date
@@ -63,7 +63,7 @@ int $log_info(char *message, ...) {
 
 int $log_error(char *function_name, char *message, va_list args) {
 
-    char assembled_message[256];
+    char assembled_message[512];
     if ($debug_level >= DEBUG_LEVEL_MIN) {
         sprintf(assembled_message, "%s : %s", function_name, message);
     } else {
@@ -93,7 +93,7 @@ int $log_debug(int level, char *function_name, char *message, ...) {
     }
 
     // prepend function name to message
-    char assembled_message[256];
+    char assembled_message[512];
     sprintf(assembled_message, "%s : %s", function_name, message);
     va_list args;
     va_start(args, message);
