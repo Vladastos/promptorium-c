@@ -31,8 +31,7 @@
 
 #define MAX_MODULES 10
 #define MAX_CONTAINERS 10
-#define AVAILABLE_MODULES \
-    {"os_icon", "username", "hostname", "cwd", "git", "time", "exit_status"}
+#define AVAILABLE_MODULES {"os_icon", "username", "hostname", "cwd", "git", "time", "exit_status"}
 #define AVAILABLE_MODULES_LENGTH 7
 
 // Defaults styles

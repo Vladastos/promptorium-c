@@ -21,7 +21,11 @@
     "init-config.h": "c",
     "log-management.h": "c",
     "stdbool.h": "c",
-    "cjson.h": "c"
+    "cjson.h": "c",
+    "chrono": "c",
+    "text_encoding": "c",
+    "typeinfo": "c",
+    "init-config-modules.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

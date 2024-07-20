@@ -9,7 +9,8 @@ BIN = promptorium
 SRC_DIR = src
 MODULES_DIR= $(SRC_DIR)/modules
 
-FILES = $(wildcard $(SRC_DIR)/*.c $(SRC_DIR)/*.h $(MODULES_DIR)/*.c $(MODULES_DIR)/*.h $(MODULES_DIR)/*/*.c $(MODULES_DIR)/*/*/*.c $(MODULES_DIR)/*/*/*.h)
+#FILES = $(wildcard $(SRC_DIR)/*.c $(SRC_DIR)/*.h $(MODULES_DIR)/*.c $(MODULES_DIR)/*.h $(MODULES_DIR)/*/*.c $(MODULES_DIR)/*/*/*.c $(MODULES_DIR)/*/*/*.h)
+FILES = $(wildcard $(SRC_DIR)/*.c $(SRC_DIR)/*.h $(MODULES_DIR)/*.c $(MODULES_DIR)/*.h $(MODULES_DIR)/*/*.c $(MODULES_DIR)/*/*/*.c $(MODULES_DIR)/*/*/*.h $(MODULES_DIR)/*/*/*/*.c $(MODULES_DIR)/*/*/*/*.h $(MODULES_DIR)/*/*/*/*/*.c $(MODULES_DIR)/*/*/*/*/*.h)
 
 DEPLODY_DIR = /usr/local/bin
 

@@ -23,4 +23,5 @@ static struct color_t *DEFAULT_ERROR_COLOR = &COLOR_RED;
 
 static struct color_t *DEFAULT_BACKGROUND_COLOR = &COLOR_BLACK;
 static struct color_t *DEFAULT_FOREGROUND_COLOR = &COLOR_WHITE;
+
 #endif

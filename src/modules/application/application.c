@@ -33,7 +33,7 @@ static void _parse_command(int argc, char *argv[]) {
         }
 
         if (strcmp(argv[i], "cleanup") == 0) {
-            $memory_cleanup_segment();
+            cleanup();
             exit(0);
         }
 

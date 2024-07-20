@@ -18,8 +18,7 @@ int $get_ipc_key() {
 
 static int _memory_detach_segment(char *shm) {
     // detach the shared memory segment
-    $log_debug(DEBUG_LEVEL_MAX, "detach_shared_memory_segment",
-               "Detaching shared memory segment");
+    $log_debug(DEBUG_LEVEL_MAX, "detach_shared_memory_segment", "Detaching shared memory segment");
     if (shmdt(shm) == -1) {
         $throw_error("detach_shared_memory : shmdt", "Failed to detach shared memory segment");
     }
@@ -28,8 +27,7 @@ static int _memory_detach_segment(char *shm) {
 
 static char *_memory_attach_segment(int ipc_key) {
     // attach the shared memory segment
-    $log_debug(DEBUG_LEVEL_MAX, "attach_shared_memory_segment",
-               "Attaching shared memory segment");
+    $log_debug(DEBUG_LEVEL_MAX, "attach_shared_memory_segment", "Attaching shared memory segment");
 
     int shmid = shmget(ipc_key, 0, 0);
     if (shmid == -1) {
@@ -50,8 +48,7 @@ void $memory_create_segment(int ipc_key, int size, int permissions) {
     $log_debug(DEBUG_LEVEL_MAX, "$memory_create_segment", "Creating shared memory segment");
     int shmid = shmget(ipc_key, size, permissions | IPC_CREAT);
     if (shmid == -1) {
-        $throw_error("$memory_create_segment : shmget",
-                     "Failed to create shared memory segment");
+        $throw_error("$memory_create_segment : shmget", "Failed to create shared memory segment");
     }
     return;
 }
@@ -62,8 +59,7 @@ int $memory_write_segment(int ipc_key, struct config_t *config) {
     char *shm = _memory_attach_segment(ipc_key);
 
     // write the config to the shared memory segment
-    $log_debug(DEBUG_LEVEL_MAX, "$memory_write_segment",
-               "Writing config to shared memory segment");
+    $log_debug(DEBUG_LEVEL_MAX, "$memory_write_segment", "Writing config to shared memory segment");
 
     memcpy(shm, config, sizeof(struct config_t));
 
@@ -100,8 +96,7 @@ int $memory_cleanup_segment() {
     }
     // destroy the shared memory segment
     if (shmctl(shmid, IPC_RMID, NULL) == -1) {
-        $throw_error("cleanup_shared_memory : shmctl",
-                     "Failed to destroy shared memory segment");
+        $throw_error("cleanup_shared_memory : shmctl", "Failed to destroy shared memory segment");
     }
     return 0;
 }
