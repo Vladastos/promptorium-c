@@ -5,21 +5,7 @@
 
 // Getters and setters
 
-struct config_t *$get_config();
-
-void $set_config(struct config_t *new_config);
-
-struct module_t **$get_modules();
-
-void $set_modules(struct module_t *new_modules[]);
-
-struct module_t *$get_module_by_name(char *name);
-
-void $set_module_by_name(struct module_t *new_module, char *name);
-
-struct promptorium_container_t **$get_containers();
-
-void $set_containers(struct promptorium_container_t *new_containers[]);
+struct module_t *$get_module_instance_by_name(char *name);
 
 // Functions for container creation
 

@@ -100,7 +100,7 @@ struct promptorium_container_t {
 struct config_t {
     char *version;
     struct global_style_t global_style;
-    struct promptorium_container_t *containers[MAX_CONTAINERS];
+    struct promptorium_container_t containers[MAX_CONTAINERS];
     struct module_t modules[AVAILABLE_MODULES_LENGTH];
 };
 

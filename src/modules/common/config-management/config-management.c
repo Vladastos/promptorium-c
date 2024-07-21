@@ -11,74 +11,25 @@
 */
 
 // Initializing singletons
+struct config_t $config = {NULL};
 
-static struct module_t *modules[AVAILABLE_MODULES_LENGTH] = {NULL};
+struct module_t $modules[AVAILABLE_MODULES_LENGTH] = {NULL};
 
-static struct promptorium_container_t *containers[MAX_CONTAINERS] = {NULL};
+struct promptorium_container_t $containers[MAX_CONTAINERS] = {NULL};
 
-// Getters and setters
+// Getters
 
-struct config_t *$get_config() {
-    static struct config_t *config = NULL;
-    return config;
-}
-
-void $set_config(struct config_t *new_config) {
-    if (new_config == NULL) {
-        $throw_error(__func__, "new_config is NULL");
-    }
-
-    struct config_t *config = $get_config();
-    config = new_config;
-}
-
-struct module_t **$get_modules() { return modules; }
-
-void $set_modules(struct module_t *new_modules[]) {
-    if (new_modules == NULL) {
-        $throw_error(__func__, "new_modules is NULL");
-    }
-
-    for (int i = 0; i < AVAILABLE_MODULES_LENGTH; i++) {
-        modules[i] = new_modules[i];
-    }
-}
-
-struct module_t *$get_module_by_name(char *name) {
+struct module_t *$get_module_instance_by_name(char *name) {
     if (name == NULL) {
         $throw_error(__func__, "name is NULL");
     }
 
     for (int i = 0; i < AVAILABLE_MODULES_LENGTH; i++) {
-        if (strcmp(modules[i]->name, name) == 0) {
-            return modules[i];
+        if (strcmp($modules[i].name, name) == 0) {
+            return &$modules[i];
         }
     }
     return NULL;
-}
-
-void $set_module_by_name(struct module_t *new_module, char *name) {
-    if (new_module == NULL) {
-        $throw_error(__func__, "new_module is NULL");
-    }
-
-    for (int i = 0; i < AVAILABLE_MODULES_LENGTH; i++) {
-        if (strcmp(modules[i]->name, name) == 0) {
-            modules[i] = new_module;
-        }
-    }
-};
-
-struct promptorium_container_t **$get_containers() { return containers; }
-
-void $set_containers(struct promptorium_container_t *new_containers[]) {
-    if (new_containers == NULL) {
-        $throw_error(__func__, "new_containers is NULL");
-    }
-
-    for (int i = 0; i < MAX_CONTAINERS; i++) {
-        containers[i] = new_containers[i];
-    }
 }
 
 // Functions for container creation
@@ -92,7 +43,7 @@ $create_promptorium_container(char *module_names[], int num_modules, char *conta
     promptorium_container.style = container_style;
     promptorium_container.modules_separator = modules_separator;
     for (int i = 0; i < num_modules; i++) {
-        promptorium_container.modules[i] = $get_module_by_name(module_names[i]);
+        promptorium_container.modules[i] = $get_module_instance_by_name(module_names[i]);
     }
     return promptorium_container;
 }
@@ -129,28 +80,133 @@ static struct container_style_t _create_default_container_style() {
     return default_container_style;
 };
 
-static struct promptorium_container_t **_create_default_containers() {
-    struct promptorium_container_t *default_containers[MAX_CONTAINERS] = {NULL};
-    
+static struct promptorium_container_t *_create_default_containers() {
+    struct promptorium_container_t default_containers[MAX_CONTAINERS] = {NULL};
 
     return default_containers;
 }
 
+static struct module_t _create_os_icon_module() {
+
+    struct module_t os_icon = {
+        .name = "os_icon",
+        .icon = "",
+        .style = (struct module_style_t){.background_color = DEFAULT_BACKGROUND_COLOR,
+                                         .foreground_color = DEFAULT_PRIMARY_COLOR},
+        .icon_style = (struct icon_style_t){.background_color = DEFAULT_BACKGROUND_COLOR,
+                                            .foreground_color = DEFAULT_PRIMARY_COLOR,
+                                            .separator = ""}};
+    return os_icon;
+};
+
+static struct module_t _create_user_module() {
+
+    struct module_t user = {
+        .name = "user",
+        .icon = "",
+        .style = (struct module_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                         .foreground_color = DEFAULT_BACKGROUND_COLOR},
+        .icon_style = (struct icon_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                            .foreground_color = DEFAULT_BACKGROUND_COLOR,
+                                            .separator = ""}};
+    return user;
+};
+
+static struct module_t _create_hostname_module() {
+
+    struct module_t hostname = {
+        .name = "hostname",
+        .icon = "",
+        .style = (struct module_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                         .foreground_color = DEFAULT_BACKGROUND_COLOR},
+        .icon_style = (struct icon_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                            .foreground_color = DEFAULT_BACKGROUND_COLOR,
+                                            .separator = ""}};
+    return hostname;
+};
+
+static struct module_t _create_cwd_module() {
+
+    struct module_t cwd = {
+        .name = "cwd",
+        .icon = "",
+        .style = (struct module_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                         .foreground_color = DEFAULT_BACKGROUND_COLOR},
+        .icon_style = (struct icon_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                            .foreground_color = DEFAULT_BACKGROUND_COLOR,
+                                            .separator = ""}};
+    return cwd;
+};
+
+static struct module_t _create_git_module() {
+
+    struct module_t git = {
+        .name = "git",
+        .icon = "",
+        .style = (struct module_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                         .foreground_color = DEFAULT_BACKGROUND_COLOR},
+        .icon_style = (struct icon_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                            .foreground_color = DEFAULT_BACKGROUND_COLOR,
+                                            .separator = ""}};
+    return git;
+};
+
+static struct module_t _create_time_module() {
+
+    struct module_t time = {
+        .name = "time",
+        .icon = "",
+        .style = (struct module_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                         .foreground_color = DEFAULT_BACKGROUND_COLOR},
+        .icon_style = (struct icon_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                            .foreground_color = DEFAULT_BACKGROUND_COLOR,
+                                            .separator = ""}};
+    return time;
+};
+
+static struct module_t _create_exit_status_module() {
+
+    struct module_t exit_status = {
+        .name = "exit_status",
+        .icon = "",
+        .style = (struct module_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                         .foreground_color = DEFAULT_BACKGROUND_COLOR},
+        .icon_style = (struct icon_style_t){.background_color = DEFAULT_PRIMARY_COLOR,
+                                            .foreground_color = DEFAULT_BACKGROUND_COLOR,
+                                            .separator = ""}};
+    return exit_status;
+};
+
+static void _initialize_default_modules() {
+
+    $log_debug(DEBUG_LEVEL_MEDIUM, "_initialize_default_modules", "Initializing default modules");
+
+    $modules[0] = _create_os_icon_module();
+    $modules[1] = _create_user_module();
+    $modules[2] = _create_hostname_module();
+    $modules[3] = _create_cwd_module();
+    $modules[4] = _create_git_module();
+    $modules[5] = _create_time_module();
+    $modules[6] = _create_exit_status_module();
+}
+
 struct config_t $create_default_config() {
 
-    struct module_t **modules = $get_modules();
-
-    struct promptorium_container_t **containers = $get_containers();
+    _initialize_default_modules();
 
     struct config_t default_config = {.version = PROMPTORIUM_VERSION,
-                                      .global_style = _create_default_global_style()};
-
-    for (int i = 0; i < MAX_CONTAINERS; i++) {
-        default_config.containers[i] = containers[i];
+                                      .global_style = _create_default_global_style(),
+                                      .modules = {NULL},
+                                      .containers = {NULL}};
+    for (int i = 0; i < AVAILABLE_MODULES_LENGTH; i++) {
+        if ($modules[i].name != NULL) {
+            default_config.modules[i] = $modules[i];
+        }
     }
 
     return default_config;
 }
+
 // Debug functions
 
 void $debug_config(struct config_t *config) {
@@ -171,8 +227,19 @@ void $debug_config(struct config_t *config) {
 
     $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Modules:");
     for (int i = 0; i < AVAILABLE_MODULES_LENGTH; i++) {
-        $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Module %d: %s", i,
-                   config->modules[i].name);
+        if (config->modules[i].name != NULL) {
+            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Module %d: %s", i,
+                       config->modules[i].name);
+            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Icon: %s", config->modules[i].icon);
+        }
+    }
+
+    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Containers:");
+    for (int i = 0; i < MAX_CONTAINERS; i++) {
+        if (config->containers[i].name != NULL) {
+            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container %d: %s", i,
+                       config->containers[i].name);
+        }
     }
     return;
 }
