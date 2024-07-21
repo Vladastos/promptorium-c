@@ -6,7 +6,6 @@
     It is responsible for the following:
         - Initializing the configuration to default values
         - Loading the configuration from a file
-        - granting access to the modules and the config singletons
 
 */
 
@@ -21,7 +20,7 @@ struct promptorium_container_t $containers[MAX_CONTAINERS] = {NULL};
 
 struct module_t *$get_module_instance_by_name(char *name) {
     if (name == NULL) {
-        $throw_error(__func__, "name is NULL");
+        $throw_error("$get_module_instance_by_name", "name is NULL");
     }
 
     for (int i = 0; i < AVAILABLE_MODULES_LENGTH; i++) {
@@ -79,12 +78,6 @@ static struct container_style_t _create_default_container_style() {
         .end_divider = DEFAULT_CONTAINER_END_DIVIDER};
     return default_container_style;
 };
-
-static struct promptorium_container_t *_create_default_containers() {
-    struct promptorium_container_t default_containers[MAX_CONTAINERS] = {NULL};
-
-    return default_containers;
-}
 
 static struct module_t _create_os_icon_module() {
 
@@ -190,9 +183,29 @@ static void _initialize_default_modules() {
     $modules[6] = _create_exit_status_module();
 }
 
+static void _initialize_default_containers() {
+    $log_debug(DEBUG_LEVEL_MEDIUM, "_initialize_default_containers",
+               "Initializing default containers");
+
+    struct container_style_t default_container_style = _create_default_container_style();
+
+    char *user_modules[] = {"user", "hostname"};
+    char *cwd_modules[] = {"cwd", "git"};
+    char *time_modules[] = {"time"};
+
+    $containers[0] = $create_promptorium_container(user_modules, 2, "user", default_container_style,
+                                                   DEFAULT_MODULE_SEPARATOR);
+    $containers[1] = $create_promptorium_container(cwd_modules, 2, "cwd", default_container_style,
+                                                   DEFAULT_MODULE_SEPARATOR);
+    $containers[2] = $create_promptorium_container(time_modules, 1, "time", default_container_style,
+                                                   DEFAULT_MODULE_SEPARATOR);
+};
+
 struct config_t $create_default_config() {
 
     _initialize_default_modules();
+
+    _initialize_default_containers();
 
     struct config_t default_config = {.version = PROMPTORIUM_VERSION,
                                       .global_style = _create_default_global_style(),
@@ -201,6 +214,12 @@ struct config_t $create_default_config() {
     for (int i = 0; i < AVAILABLE_MODULES_LENGTH; i++) {
         if ($modules[i].name != NULL) {
             default_config.modules[i] = $modules[i];
+        }
+    }
+
+    for (int i = 0; i < MAX_CONTAINERS; i++) {
+        if ($containers[i].name != NULL) {
+            default_config.containers[i] = $containers[i];
         }
     }
 
@@ -213,7 +232,7 @@ void $debug_config(struct config_t *config) {
     $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Version: %s", config->version);
     $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Global style:");
     $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container start divider: %s",
-               config->global_style.container_end_divider);
+               config->global_style.container_start_divider);
     $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container end divider: %s",
                config->global_style.container_end_divider);
     $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container padding: %s",
