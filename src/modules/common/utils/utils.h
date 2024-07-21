@@ -16,6 +16,4 @@ char *$strtrim(char *s);
 
 void $debug_args(int argc, char *argv[]);
 
-void $debug_config(struct config_t *config);
-
 #endif

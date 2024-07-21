@@ -20,6 +20,7 @@
 #include "error-management/error-management.h"
 #include "log-management/log-management.h"
 #include "shared-memory-management/shared-memory-management.h"
+#include "config-management/config-management.h"
 #include "utils/utils.h"
 #include "utils/definitions.h"
 #include "colors/colors.h"

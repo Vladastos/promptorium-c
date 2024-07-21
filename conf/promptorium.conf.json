@@ -49,8 +49,7 @@
 			"name" : "exit_container",
 			"modules": [
 				"time",
-				"status",
-				"exit"
+				"exit_status"
 			],
 			"style" : {
 				"background": "none"
@@ -83,6 +82,20 @@
 				"background_color":"primary",
 				"foreground_color":"black",
 				"icon_separator":""
+			}
+		},
+		"time" : {
+			"icon" : "",
+			"style" : {
+				"background_color": "none",
+				"foreground_color": "black"
+			}
+		},
+		"exit_status" : {
+			"icon" : "",
+			"style" : {
+				"background_color": "none",
+				"foreground_color": "black"
 			}
 		}
 	}

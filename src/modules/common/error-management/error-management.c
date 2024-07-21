@@ -2,7 +2,7 @@
 
 #include "error-management.h"
 
-void $throw_error(char *function_name, char *message, ...) {
+void $throw_error(const char *function_name, char *message, ...) {
     va_list args;
     va_start(args, message);
     $log_error(function_name, message, args);

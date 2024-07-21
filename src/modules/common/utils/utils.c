@@ -24,27 +24,3 @@ void $debug_args(int argc, char *argv[]) {
     }
     return;
 }
-
-void $debug_config(struct config_t *config) {
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Version: %s", config->version);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Global style:");
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container start divider: %s",
-               config->global_style->container_start_divider);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container end divider: %s",
-               config->global_style->container_end_divider);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container padding: %s",
-               config->global_style->container_padding);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container spacer: %s",
-               config->global_style->container_spacer);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Module separator: %s",
-               config->global_style->module_separator);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Module padding: %s",
-               config->global_style->module_padding);
-
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Modules:");
-    for (int i = 0; i < AVAILABLE_MODULES_LENGTH; i++) {
-        $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Module %d: %s", i,
-                   config->modules[i]->name);
-    }
-    return;
-}

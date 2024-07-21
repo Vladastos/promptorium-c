@@ -78,8 +78,8 @@ struct icon_style_t {
 struct module_t {
     char *name;
     char *icon;
-    struct module_style_t *style;
-    struct icon_style_t *icon_style;
+    struct module_style_t style;
+    struct icon_style_t icon_style;
 };
 
 struct container_style_t {
@@ -92,16 +92,16 @@ struct container_style_t {
 
 struct promptorium_container_t {
     char *name;
-    struct container_style_t *style;
+    struct container_style_t style;
     struct module_t *modules[MAX_MODULES];
     char *modules_separator;
 };
 
 struct config_t {
     char *version;
-    struct global_style_t *global_style;
+    struct global_style_t global_style;
     struct promptorium_container_t *containers[MAX_CONTAINERS];
-    struct module_t *modules[AVAILABLE_MODULES_LENGTH];
+    struct module_t modules[AVAILABLE_MODULES_LENGTH];
 };
 
 #endif

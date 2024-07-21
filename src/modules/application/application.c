@@ -38,7 +38,7 @@ static void _parse_command(int argc, char *argv[]) {
         }
 
         _print_help();
-        $throw_error("parse_command", "Command %s not found", argv[1]);
+        $throw_error(__func__, "Command %s not found", argv[1]);
     }
 
     return;
@@ -106,7 +106,7 @@ int run_application(int argc, char *argv[]) {
 
     _parse_command(argc, argv);
 
-    $throw_error("run_application", "Command %s not found", argv[1]);
+    $throw_error(__func__, "Command %s not found", argv[1]);
 
     return 0;
 }

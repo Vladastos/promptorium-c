@@ -40,7 +40,7 @@ static void _get_config_from_file() {
 
 int init_config() {
 
-    struct config_t default_config = create_default_config();
+    struct config_t default_config = $create_default_config();
 
     $debug_config(&default_config);
 
