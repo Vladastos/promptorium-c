@@ -17,6 +17,10 @@ $create_promptorium_container(char *module_names[], int num_modules, char *conta
 
 struct config_t $create_default_config();
 
+void $set_config_from_json(struct config_t *config, char *config_file_content);
+
+// Debug functions
+
 void $debug_config(struct config_t *config);
 
 #endif

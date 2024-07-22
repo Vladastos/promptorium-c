@@ -1,4 +1,5 @@
-{	
+{
+	"version" : "0.0.1",
 	"style" : {
 		"container_start_divider" : "",
 		"container_end_divider" : "",
