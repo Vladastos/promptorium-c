@@ -7,7 +7,7 @@
 		"container_spacer": "─",
 		"module_separator" : "",
 		"module_padding" : " ",
-		"primary_color" : "blue",
+		"primary_color" : "red",
 		"secondary_color" : "green",
 		"tertiary_color" : "yellow",
 		"quaternary_color" : "violet",

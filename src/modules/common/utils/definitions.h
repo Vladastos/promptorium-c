@@ -9,6 +9,7 @@
 #define DEBUG_LEVEL_MIN 1
 #define DEBUG_LEVEL_MEDIUM 2
 #define DEBUG_LEVEL_MAX 3
+#define DEBUG_LEVEL_EXTREME 4
 
 #define LOG_LEVEL_INFO 0
 #define LOG_LEVEL_ERROR 1
@@ -44,6 +45,7 @@
 #define DEFAULT_MODULE_PADDING " "
 
 struct color_t {
+    char *name;
     char *foreground_code;
     char *background_code;
 };

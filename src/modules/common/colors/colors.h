@@ -13,6 +13,9 @@ extern struct color_t COLOR_CYAN;
 extern struct color_t COLOR_WHITE;
 extern struct color_t COLOR_RESET;
 
+extern struct color_t *$colors[];
+extern int AVAILABLE_COLORS_LENGTH;
+
 extern struct color_t *DEFAULT_PRIMARY_COLOR;
 extern struct color_t *DEFAULT_SECONDARY_COLOR;
 extern struct color_t *DEFAULT_TERTIARY_COLOR;
