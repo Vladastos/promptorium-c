@@ -8,7 +8,7 @@ struct color_t COLOR_BLUE = {"blue", "\033[34m", "\033[44m"};
 struct color_t COLOR_MAGENTA = {"magenta", "\033[35m", "\033[45m"};
 struct color_t COLOR_CYAN = {"cyan", "\033[36m", "\033[46m"};
 struct color_t COLOR_WHITE = {"white", "\033[37m", "\033[47m"};
-struct color_t COLOR_RESET = {"reset", "\033[0m", "\033[0m"};
+struct color_t COLOR_RESET = {"none", "\033[0m", "\033[0m"};
 
 struct color_t *$colors[] = {&COLOR_BLACK,   &COLOR_RED,  &COLOR_GREEN, &COLOR_YELLOW, &COLOR_BLUE,
                              &COLOR_MAGENTA, &COLOR_CYAN, &COLOR_WHITE, &COLOR_RESET};
@@ -22,5 +22,5 @@ struct color_t *DEFAULT_SUCCESS_COLOR = &COLOR_GREEN;
 struct color_t *DEFAULT_WARNING_COLOR = &COLOR_YELLOW;
 struct color_t *DEFAULT_ERROR_COLOR = &COLOR_RED;
 
-struct color_t *DEFAULT_BACKGROUND_COLOR = &COLOR_BLACK;
+struct color_t *DEFAULT_BACKGROUND_COLOR = &COLOR_RESET;
 struct color_t *DEFAULT_FOREGROUND_COLOR = &COLOR_WHITE;

@@ -19,6 +19,8 @@ struct config_t $create_default_config();
 
 void $set_config_from_json(struct config_t *config, char *config_file_content);
 
+void $free_config();
+
 // Debug functions
 
 void $debug_config(struct config_t *config);

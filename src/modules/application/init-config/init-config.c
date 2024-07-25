@@ -48,6 +48,8 @@ int init_config() {
 
     struct config_t default_config = $create_default_config();
 
+    $debug_config(&default_config);
+
     _set_config_from_file(&default_config);
 
     $debug_config(&default_config);

@@ -10,8 +10,6 @@
 */
 
 // Initializing global variables
-struct config_t $config = {NULL};
-
 struct module_t $modules[AVAILABLE_MODULES_LENGTH] = {NULL};
 
 struct promptorium_container_t $containers[MAX_CONTAINERS] = {NULL};
@@ -314,7 +312,81 @@ static void _parse_global_style(struct config_t *config, cJSON *style) {
 
 // Module functions
 
-static void _parse_module(struct module_t *module, cJSON *module_json) {
+static void _set_module_color(struct color_t **color, char *color_name, struct config_t *config) {
+    $log_debug(DEBUG_LEVEL_MEDIUM, "_set_module_color", "Setting module color: %s", color_name);
+    for (int i = 0; i < AVAILABLE_COLORS_LENGTH; i++) {
+        if (strcmp(color_name, $colors[i]->name) == 0) {
+            $log_debug(DEBUG_LEVEL_MEDIUM, "_set_module_color", "Found color: %s", color_name);
+            *color = $colors[i];
+            return;
+        }
+    }
+    // Check if the color is "primary","secondary","tertiary","quaternary" or "none"
+
+    if (strcmp(color_name, "primary") == 0) {
+        *color = config->global_style.primary_color;
+        return;
+    } else if (strcmp(color_name, "secondary") == 0) {
+        *color = config->global_style.secondary_color;
+        return;
+    } else if (strcmp(color_name, "tertiary") == 0) {
+        *color = config->global_style.tertiary_color;
+        return;
+    } else if (strcmp(color_name, "quaternary") == 0) {
+        *color = config->global_style.quaternary_color;
+        return;
+    } else if (strcmp(color_name, "none") == 0) {
+        *color = &COLOR_RESET;
+        return;
+    }
+
+    $log_debug(DEBUG_LEVEL_MEDIUM, "_set_module_color", "Invalid color name: %s", color_name);
+}
+
+static void _parse_module_style(struct module_t *module, cJSON *style, struct config_t *config) {
+
+    $log_debug(DEBUG_LEVEL_MEDIUM, "_parse_module_style", "Parsing module style");
+
+    cJSON *background_color = cJSON_GetObjectItem(style, "background_color");
+    if (background_color != NULL) {
+        $log_debug(DEBUG_LEVEL_MAX, "_parse_module_style", "Setting %s background color to %s",
+                   module->name, background_color->valuestring);
+        _set_module_color(&module->style.background_color, background_color->valuestring, config);
+    }
+
+    cJSON *foreground_color = cJSON_GetObjectItem(style, "foreground_color");
+    if (foreground_color != NULL) {
+        $log_debug(DEBUG_LEVEL_MAX, "_parse_module_style", "Setting %s foreground color to %s",
+                   module->name, foreground_color->valuestring);
+        _set_module_color(&module->style.foreground_color, foreground_color->valuestring, config);
+    }
+}
+
+static void _parse_icon_style(struct module_t *module, cJSON *icon_style, struct config_t *config) {
+
+    $log_debug(DEBUG_LEVEL_MEDIUM, "_parse_icon_style", "Parsing icon style");
+
+    cJSON *background_color = cJSON_GetObjectItem(icon_style, "background_color");
+    if (background_color != NULL) {
+        _set_module_color(&module->icon_style.background_color, background_color->valuestring,
+                          config);
+    }
+
+    cJSON *foreground_color = cJSON_GetObjectItem(icon_style, "foreground_color");
+    if (foreground_color != NULL) {
+        _set_module_color(&module->icon_style.foreground_color, foreground_color->valuestring,
+                          config);
+    }
+
+    cJSON *separator = cJSON_GetObjectItem(icon_style, "separator");
+    if (separator != NULL) {
+        $log_debug(DEBUG_LEVEL_MAX, "_parse_icon_style", "Setting %s separator to %s", module->name,
+                   separator->valuestring);
+        module->icon_style.separator = strdup(separator->valuestring);
+    }
+}
+
+static void _parse_module(struct module_t *module, cJSON *module_json, struct config_t *config) {
     $log_debug(DEBUG_LEVEL_MEDIUM, "_parse_module", "Parsing module: %s", module_json->string);
 
     // Set icon
@@ -323,9 +395,16 @@ static void _parse_module(struct module_t *module, cJSON *module_json) {
         module->icon = strdup(icon);
     }
 
-    // TODO: Set style
-
-    // TODO: Set icon style
+    // Set style
+    cJSON *style = cJSON_GetObjectItem(module_json, "style");
+    if (style != NULL) {
+        _parse_module_style(module, style, config);
+    }
+    // Set icon style
+    cJSON *icon_style = cJSON_GetObjectItem(module_json, "icon_style");
+    if (icon_style != NULL) {
+        _parse_icon_style(module, icon_style, config);
+    }
 }
 static void _parse_modules(struct config_t *config, cJSON *modules) {
 
@@ -333,7 +412,7 @@ static void _parse_modules(struct config_t *config, cJSON *modules) {
 
         cJSON *module = cJSON_GetObjectItem(modules, config->modules[i].name);
         if (module != NULL) {
-            _parse_module(&config->modules[i], module);
+            _parse_module(&config->modules[i], module, config);
         }
     }
 }
@@ -353,12 +432,14 @@ static void _parse_config_json(struct config_t *config, char *config_file_conten
         _parse_global_style(config, global_style);
     }
 
-    // TODO: Parse modules
+    // Parse modules
+    // This operations have to be done after the global style is parsed because the global colors
+    // are needed
 
     cJSON *modules = cJSON_GetObjectItem(json, "modules");
     _parse_modules(config, modules);
 
-    // TODO: Parse containers
+    // Parse containers
 
     cJSON *containers = cJSON_GetObjectItem(json, "containers");
 
@@ -370,10 +451,9 @@ void $set_config_from_json(struct config_t *config, char *config_file_content) {
     _parse_config_json(config, config_file_content);
 }
 
-void $free_config(struct config_t *config) {
+void $free_config() {
     $log_debug(DEBUG_LEVEL_MEDIUM, "$free_config", "Freeing config");
     // TODO: Free config
-
 }
 
 // Debug functions
@@ -414,6 +494,16 @@ void $debug_config(struct config_t *config) {
             $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Module %d: %s", i,
                        config->modules[i].name);
             $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Icon: %s", config->modules[i].icon);
+            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Background color: %s",
+                       config->modules[i].style.background_color->name);
+            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Foreground color: %s",
+                       config->modules[i].style.foreground_color->name);
+            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Icon background color: %s",
+                       config->modules[i].icon_style.background_color->name);
+            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Icon foreground color: %s",
+                       config->modules[i].icon_style.foreground_color->name);
+            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Icon separator: %s",
+                       config->modules[i].icon_style.separator);
         }
     }
 

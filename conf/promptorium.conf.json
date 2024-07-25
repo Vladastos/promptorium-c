@@ -1,5 +1,5 @@
 {
-	"version" : "0.0.1",
+	"version" : "0.0.4",
 	"style" : {
 		"container_start_divider" : "",
 		"container_end_divider" : "",
@@ -7,10 +7,10 @@
 		"container_spacer": "─",
 		"module_separator" : "",
 		"module_padding" : " ",
-		"primary_color" : "red",
+		"primary_color" : "blue",
 		"secondary_color" : "green",
-		"tertiary_color" : "yellow",
-		"quaternary_color" : "violet",
+		"tertiary_color" : "magenta",
+		"quaternary_color" : "cyan",
 		"success_color" : "green",
 		"warning_color" : "yellow",
 		"error_color" : "red"
@@ -69,34 +69,34 @@
 		"user" : {
 			"icon" : "",
 			"style" : {
-				"background_color": "primary",
-				"foreground_color": "black"
+				"background_color": "yellow",
+				"foreground_color": "none"
 			}
 		},
 		"cwd":{
 			"icon": "",
 			"style" : {
 				"background_color": "none",
-				"foreground_color": "black"
+				"foreground_color": "none"
 			},
 			"icon_style":{
 				"background_color":"primary",
-				"foreground_color":"black",
-				"icon_separator":""
+				"foreground_color":"none",
+				"separator":""
 			}
 		},
 		"time" : {
 			"icon" : "",
 			"style" : {
-				"background_color": "none",
-				"foreground_color": "black"
+				"background_color": "secondary",
+				"foreground_color": "white"
 			}
 		},
 		"exit_status" : {
 			"icon" : "",
 			"style" : {
 				"background_color": "none",
-				"foreground_color": "black"
+				"foreground_color": "white"
 			}
 		}
 	}
