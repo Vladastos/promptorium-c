@@ -1,5 +1,18 @@
 #include "print-prompt.h"
 
+static void _set_config_from_file(struct config_t *config) {
+    char *config_file_path = CONFIG_FILE_PATH;
+    char *config_file_content = $get_file_content(config_file_path);
+
+    if (config_file_content == NULL) {
+        $throw_error("_get_config_from_file : _read_json_file", "Failed to read config file");
+    }
+
+    $set_config_from_json(config, config_file_content);
+
+    $free_config();
+}
+
 static char *_build_directory_module() {
     // get the current working directory
     size_t size = 256;
@@ -51,21 +64,12 @@ static char *_build_prompt() {
 
 char *print_prompt() {
 
-    struct config_t config;
-
-    $log_debug(DEBUG_LEVEL_MAX, "get_prompt", "Reading config from shared memory");
-
-    int ipc_key = $get_ipc_key();
-
-    $memory_read_segment(ipc_key, &config);
+    struct config_t config = $create_default_config();
+    _set_config_from_file(&config);
 
     $debug_config(&config);
 
     // TODO: return the prompt
 
-    char *prompt = _build_prompt();
-
-    $log_debug(DEBUG_LEVEL_MAX, "get_prompt", "Prompt: %s", prompt);
-    printf("%s", prompt);
     return 0;
 }

@@ -416,6 +416,11 @@ static void _parse_modules(struct config_t *config, cJSON *modules) {
         }
     }
 }
+
+static void _parse_containers(struct config_t *config, cJSON *containers) {
+    // TODO
+}
+
 static void _parse_config_json(struct config_t *config, char *config_file_content) {
     $log_debug(DEBUG_LEVEL_MEDIUM, "_parse_config_json", "Parsing config from JSON");
     cJSON *json = cJSON_Parse(config_file_content);
@@ -442,6 +447,7 @@ static void _parse_config_json(struct config_t *config, char *config_file_conten
     // Parse containers
 
     cJSON *containers = cJSON_GetObjectItem(json, "containers");
+    _parse_containers(config, containers);
 
     cJSON_Delete(json);
 }

@@ -6,9 +6,9 @@
 
 int $get_ipc_key();
 
-int $memory_write_segment(int ipc_key, struct config_t *config);
+int $memory_write_segment(int ipc_key, char *config_file_content);
 
-int $memory_read_segment(int ipc_key, struct config_t *config);
+int $memory_read_segment(int ipc_key, char *config_file_content);
 
 void $memory_create_segment(int ipc_key, int ipc_size, int permissions);
 

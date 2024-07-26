@@ -26,6 +26,11 @@
 #define CONFIG_FILE_DIR "/home/vlad/Documents/promptorium-c/conf"
 #define CONFIG_FILE_PATH CONFIG_FILE_DIR "/" CONFIG_FILE_NAME
 
+// Shared memory constants
+
+#define SHARED_MEMORY_NAME "/tmp"
+#define SHARED_MEMORY_SEGMENT_SIZE 4096
+
 //
 // Style constants and config
 //

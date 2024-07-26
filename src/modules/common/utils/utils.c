@@ -24,3 +24,23 @@ void $debug_args(int argc, char *argv[]) {
     }
     return;
 }
+
+char *$get_file_content(char *file_path) {
+    FILE *fp = fopen(file_path, "r");
+    if (fp == NULL) {
+        return NULL;
+    }
+    fseek(fp, 0, SEEK_END);
+    long length = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    $log_debug(DEBUG_LEVEL_MEDIUM, "__read_json_file", "File length: %ld", length);
+    char *buffer = malloc(length + 1);
+    if (buffer == NULL) {
+        fclose(fp);
+        return NULL;
+    }
+    fread(buffer, 1, length, fp);
+    fclose(fp);
+    buffer[length] = '\0';
+    return buffer;
+}

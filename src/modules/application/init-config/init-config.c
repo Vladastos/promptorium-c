@@ -8,55 +8,32 @@ static void _debug_config_file(char *config_file_content) {
     printf("Config file content: %s\n", config_file_content);
 }
 
-static char *_get_file_content(char *file_path) {
-    FILE *fp = fopen(file_path, "r");
-    if (fp == NULL) {
-        return NULL;
-    }
-    fseek(fp, 0, SEEK_END);
-    long length = ftell(fp);
-    fseek(fp, 0, SEEK_SET);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "__read_json_file", "File length: %ld", length);
-    char *buffer = malloc(length + 1);
-    if (buffer == NULL) {
-        fclose(fp);
-        return NULL;
-    }
-    fread(buffer, 1, length, fp);
-    fclose(fp);
-    buffer[length] = '\0';
-    return buffer;
-}
-
 static void _set_config_from_file(struct config_t *config) {
     char *config_file_path = CONFIG_FILE_PATH;
-    char *config_file_content = _get_file_content(config_file_path);
+    char *config_file_content = $get_file_content(config_file_path);
+
     if (config_file_content == NULL) {
-        return;
+        $throw_error("_get_config_from_file : _read_json_file", "Failed to read config file");
     }
 
     $set_config_from_json(config, config_file_content);
 
     _debug_config_file(config_file_content);
-    if (config_file_content == NULL) {
-        $throw_error("_get_config_from_file : _read_json_file", "Failed to read config file");
-    }
-    free(config_file_content);
+
+    $free_config();
 }
 
+// This function loads the content of the config file into the shared memory segment
 int init_config() {
 
-    struct config_t default_config = $create_default_config();
+    $memory_create_segment($get_ipc_key(), SHARED_MEMORY_SEGMENT_SIZE, IPC_CREAT | 0600);
 
-    $debug_config(&default_config);
+    char *config_file_content = $get_file_content(CONFIG_FILE_PATH);
+    if (config_file_content == NULL) {
+        $throw_error("init_config : _get_file_content", "Failed to read config file");
+    }
 
-    _set_config_from_file(&default_config);
-
-    $debug_config(&default_config);
-
-    $memory_create_segment($get_ipc_key(), sizeof(struct config_t), IPC_CREAT | 0600);
-
-    $memory_write_segment($get_ipc_key(), &default_config);
+    $memory_write_segment($get_ipc_key(), config_file_content);
 
     return 0;
 }

@@ -53,7 +53,7 @@ void $memory_create_segment(int ipc_key, int size, int permissions) {
     return;
 }
 
-int $memory_write_segment(int ipc_key, struct config_t *config) {
+int $memory_write_segment(int ipc_key, char *config_file_content) {
     // write to the shared memory segment
 
     char *shm = _memory_attach_segment(ipc_key);
@@ -61,15 +61,14 @@ int $memory_write_segment(int ipc_key, struct config_t *config) {
     // write the config to the shared memory segment
     $log_debug(DEBUG_LEVEL_MAX, "$memory_write_segment", "Writing config to shared memory segment");
 
-    memcpy(shm, config, sizeof(struct config_t));
-
+    memcpy(shm, config_file_content, SHARED_MEMORY_SEGMENT_SIZE);
     // detach the shared memory segment
     _memory_detach_segment(shm);
 
     return 0;
 }
 
-int $memory_read_segment(int ipc_key, struct config_t *config) {
+int $memory_read_segment(int ipc_key, char *config_file_content) {
 
     char *shm = _memory_attach_segment(ipc_key);
 
@@ -77,7 +76,7 @@ int $memory_read_segment(int ipc_key, struct config_t *config) {
     $log_debug(DEBUG_LEVEL_MAX, "$memory_read_segment",
                "Reading config from shared memory segment");
 
-    memcpy(config, shm, sizeof(struct config_t));
+    memcpy(config_file_content, shm, SHARED_MEMORY_SEGMENT_SIZE);
 
     // detach the shared memory segment
     _memory_detach_segment(shm);
