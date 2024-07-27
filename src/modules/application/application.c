@@ -38,7 +38,7 @@ static void _parse_command(int argc, char *argv[]) {
         }
 
         _print_help();
-        $throw_error("application", "Command %s not found", argv[1]);
+        $UTILS_throw_error("application", "Command %s not found", argv[1]);
     }
 
     return;
@@ -52,8 +52,8 @@ static int _parse_global_args(int argc, char *argv[]) {
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-d") == 0 || strcmp(argv[i], "--debug") == 0 ||
             strcmp(argv[i], "-d1") == 0 || strcmp(argv[i], "--debug-1") == 0) {
-            $debug_level = DEBUG_LEVEL_MIN;
-            $log_debug(DEBUG_LEVEL_MIN, "_parse_global_args", "Starting in debug mode");
+            $GLOBAL_debug_level = DEBUG_LEVEL_MIN;
+            $LOG_debug(DEBUG_LEVEL_MIN, "_parse_global_args", "Starting in debug mode");
 
             // remove the flag from the argument list
             memmove(&argv[i], &argv[i + 1], (argc - i) * sizeof(char *));
@@ -64,13 +64,20 @@ static int _parse_global_args(int argc, char *argv[]) {
         }
 
         if (strcmp(argv[i], "-d2") == 0 || strcmp(argv[i], "--debug-2") == 0) {
-            $debug_level = DEBUG_LEVEL_MEDIUM;
-            $log_debug(DEBUG_LEVEL_MIN, "_parse_global_args", "Starting in medium debug mode");
+            $GLOBAL_debug_level = DEBUG_LEVEL_MEDIUM;
+            $LOG_debug(DEBUG_LEVEL_MIN, "_parse_global_args", "Starting in medium debug mode");
+
+            // remove the flag from the argument list
+            memmove(&argv[i], &argv[i + 1], (argc - i) * sizeof(char *));
+            argv[argc - 1] = NULL;
+
+            argc -= 1;
+            continue;
         }
 
         if (strcmp(argv[i], "-d3") == 0 || strcmp(argv[i], "--debug-3") == 0) {
-            $debug_level = DEBUG_LEVEL_MAX;
-            $log_debug(DEBUG_LEVEL_MIN, "_parse_global_args", "Starting in deep debug mode");
+            $GLOBAL_debug_level = DEBUG_LEVEL_MAX;
+            $LOG_debug(DEBUG_LEVEL_MIN, "_parse_global_args", "Starting in deep debug mode");
 
             // remove the flag from the argument list
             memmove(&argv[i], &argv[i + 1], (argc - i) * sizeof(char *));
@@ -88,7 +95,7 @@ static int _parse_global_args(int argc, char *argv[]) {
             exit(0);
         }
     }
-    $debug_args(argc, argv);
+    $UTILS_debug_args(argc, argv);
 
     return argc;
 }
@@ -106,7 +113,7 @@ int run_application(int argc, char *argv[]) {
 
     _parse_command(argc, argv);
 
-    $throw_error("$run_application", "Command %s not found", argv[1]);
+    $UTILS_throw_error("$run_application", "Command %s not found", argv[1]);
 
     return 0;
 }

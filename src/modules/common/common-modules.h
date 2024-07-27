@@ -17,7 +17,6 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "error-management/error-management.h"
 #include "log-management/log-management.h"
 #include "shared-memory-management/shared-memory-management.h"
 #include "config-management/config-management.h"

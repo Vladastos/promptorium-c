@@ -1,6 +1,6 @@
 #include "cleanup.h"
 
 int cleanup() {
-    $memory_cleanup_segment();
+    $MEMORY_clear_segment();
     return 0;
 }

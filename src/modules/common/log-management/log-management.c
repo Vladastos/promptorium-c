@@ -16,7 +16,7 @@ static char *_get_level_string(int level) {
     }
 }
 
-int $log_message(int log_level, char *message, va_list args) {
+int $LOG_message(int log_level, char *message, va_list args) {
 
     char *log_level_string = _get_level_string(log_level);
     char assembled_message[512];
@@ -28,7 +28,7 @@ int $log_message(int log_level, char *message, va_list args) {
     struct tm *tm = localtime(&t);
     char date[80];
     strftime(date, sizeof(date), "%Y-%m-%d %H:%M:%S", tm);
-    if ($debug_level >= DEBUG_LEVEL_MIN) {
+    if ($GLOBAL_debug_level >= DEBUG_LEVEL_MIN) {
         printf("[ %s ] [ %s ] %s \n", date, log_level_string, assembled_message);
     } else {
         printf("%s\n", message);
@@ -37,14 +37,14 @@ int $log_message(int log_level, char *message, va_list args) {
     // TODO: log to syslog
 
     // log to file
-    if ($log_file_path == NULL) {
+    if ($GLOBAL_log_file_path == NULL) {
         return -1;
     }
     if (log_level == LOG_LEVEL_DEBUG) {
         return 0;
     }
 
-    FILE *log_file = fopen($log_file_path, "a");
+    FILE *log_file = fopen($GLOBAL_log_file_path, "a");
     if (log_file == NULL) {
         return -1;
     }
@@ -53,42 +53,42 @@ int $log_message(int log_level, char *message, va_list args) {
     return 0;
 }
 
-int $log_info(char *message, ...) {
+int $LOG_info(char *message, ...) {
     va_list args;
     va_start(args, message);
     va_end(args);
 
-    return $log_message(LOG_LEVEL_INFO, message, args);
+    return $LOG_message(LOG_LEVEL_INFO, message, args);
 }
 
-int $log_error(char *function_name, char *message, va_list args) {
+int $LOG_error(char *function_name, char *message, va_list args) {
 
     char assembled_message[512];
-    if ($debug_level >= DEBUG_LEVEL_MIN) {
+    if ($GLOBAL_debug_level >= DEBUG_LEVEL_MIN) {
         sprintf(assembled_message, "%s : %s", function_name, message);
     } else {
         sprintf(assembled_message, "promptorium : %s", message);
     }
 
     int result = 0;
-    result = $log_message(LOG_LEVEL_ERROR, assembled_message, args);
+    result = $LOG_message(LOG_LEVEL_ERROR, assembled_message, args);
 
     va_end(args);
     return result;
 }
 
-int $log_warning(char *message, ...) {
+int $LOG_warning(char *message, ...) {
     va_list args;
     va_start(args, message);
     va_end(args);
-    return $log_message(LOG_LEVEL_WARNING, message, args);
+    return $LOG_message(LOG_LEVEL_WARNING, message, args);
 }
 
-int $log_debug(int level, char *function_name, char *message, ...) {
+int $LOG_debug(int level, char *function_name, char *message, ...) {
 
-    extern int $debug_level;
+    extern int $GLOBAL_debug_level;
     int result = 0;
-    if ($debug_level < level) {
+    if ($GLOBAL_debug_level < level) {
         return 0;
     }
 
@@ -98,7 +98,7 @@ int $log_debug(int level, char *function_name, char *message, ...) {
     va_list args;
     va_start(args, message);
 
-    result = $log_message(LOG_LEVEL_DEBUG, assembled_message, args);
+    result = $LOG_message(LOG_LEVEL_DEBUG, assembled_message, args);
 
     va_end(args);
 

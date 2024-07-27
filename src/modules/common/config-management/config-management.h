@@ -5,24 +5,27 @@
 
 // Getters and setters
 
-struct module_t *$get_module_instance_by_name(char *name);
+struct module_t *$CONFIG_get_module_instance_by_name(char *name);
 
 // Functions for container creation
 
-struct promptorium_container_t
-$create_promptorium_container(char *module_names[], int num_modules, char *container_name,
-                              struct container_style_t container_style, char *modules_separator);
+struct promptorium_container_t $CONFIG_create_container(char *module_names[], int num_modules,
+                                                        char *container_name,
+                                                        struct container_style_t container_style,
+                                                        char *modules_separator);
 
 // Functions for initializing configuration with default values
 
-struct config_t $create_default_config();
+struct config_t $CONFIG_create_default_config();
 
-void $set_config_from_json(struct config_t *config, char *config_file_content);
+void $CONFIG_set_config_from_json(struct config_t *config, char *config_file_content);
 
-void $free_config();
+void $CONFIG_set_config_from_file(struct config_t *config);
+
+void $CONFIG_free_config();
 
 // Debug functions
 
-void $debug_config(struct config_t *config);
+void $CONFIG_debug_config(struct config_t *config);
 
 #endif

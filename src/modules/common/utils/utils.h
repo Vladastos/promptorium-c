@@ -6,16 +6,16 @@
 #include "../common-modules.h"
 #include "../utils/definitions.h"
 
-extern int $debug_level;
+extern int $GLOBAL_debug_level;
 
-extern char *$log_file_path;
+extern char *$GLOBAL_log_file_path;
 
-int $get_ipc_key();
+extern char *$GLOBAL_config_file_path;
 
-char *$strtrim(char *s);
+char *$UTILS_get_file_content(char *file_path);
 
-char *$get_file_content(char *file_path);
+void $UTILS_debug_args(int argc, char *argv[]);
 
-void $debug_args(int argc, char *argv[]);
+void $UTILS_throw_error(char *function_name, char *message, ...);
 
 #endif

@@ -16,9 +16,9 @@ struct promptorium_container_t $containers[MAX_CONTAINERS] = {NULL};
 
 // Getters
 
-struct module_t *$get_module_instance_by_name(char *name) {
+struct module_t *$CONFIG_get_module_instance_by_name(char *name) {
     if (name == NULL) {
-        $throw_error("$get_module_instance_by_name", "name is NULL");
+        $UTILS_throw_error("$CONFIG_get_module_instance_by_name", "name is NULL");
     }
 
     for (int i = 0; i < AVAILABLE_MODULES_LENGTH; i++) {
@@ -31,16 +31,17 @@ struct module_t *$get_module_instance_by_name(char *name) {
 
 // Functions for container creation
 
-struct promptorium_container_t
-$create_promptorium_container(char *module_names[], int num_modules, char *container_name,
-                              struct container_style_t container_style, char *modules_separator) {
+struct promptorium_container_t $CONFIG_create_container(char *module_names[], int num_modules,
+                                                        char *container_name,
+                                                        struct container_style_t container_style,
+                                                        char *modules_separator) {
     struct promptorium_container_t promptorium_container = {NULL};
 
     promptorium_container.name = container_name;
     promptorium_container.style = container_style;
     promptorium_container.modules_separator = modules_separator;
     for (int i = 0; i < num_modules; i++) {
-        promptorium_container.modules[i] = $get_module_instance_by_name(module_names[i]);
+        promptorium_container.modules[i] = $CONFIG_get_module_instance_by_name(module_names[i]);
     }
     return promptorium_container;
 }
@@ -177,7 +178,7 @@ static struct module_t _create_exit_status_module() {
 
 static void _initialize_default_modules() {
 
-    $log_debug(DEBUG_LEVEL_MEDIUM, "_initialize_default_modules", "Initializing default modules");
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "_initialize_default_modules", "Initializing default modules");
 
     $modules[0] = _create_os_icon_module();
     $modules[1] = _create_user_module();
@@ -189,7 +190,7 @@ static void _initialize_default_modules() {
 }
 
 static void _initialize_default_containers() {
-    $log_debug(DEBUG_LEVEL_MEDIUM, "_initialize_default_containers",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "_initialize_default_containers",
                "Initializing default containers");
 
     struct container_style_t default_container_style = _create_default_container_style();
@@ -198,15 +199,15 @@ static void _initialize_default_containers() {
     char *cwd_modules[] = {"cwd", "git"};
     char *time_modules[] = {"time"};
 
-    $containers[0] = $create_promptorium_container(user_modules, 2, "user", default_container_style,
-                                                   DEFAULT_MODULE_SEPARATOR);
-    $containers[1] = $create_promptorium_container(cwd_modules, 2, "cwd", default_container_style,
-                                                   DEFAULT_MODULE_SEPARATOR);
-    $containers[2] = $create_promptorium_container(time_modules, 1, "time", default_container_style,
-                                                   DEFAULT_MODULE_SEPARATOR);
+    $containers[0] = $CONFIG_create_container(user_modules, 2, "user", default_container_style,
+                                              DEFAULT_MODULE_SEPARATOR);
+    $containers[1] = $CONFIG_create_container(cwd_modules, 2, "cwd", default_container_style,
+                                              DEFAULT_MODULE_SEPARATOR);
+    $containers[2] = $CONFIG_create_container(time_modules, 1, "time", default_container_style,
+                                              DEFAULT_MODULE_SEPARATOR);
 };
 
-struct config_t $create_default_config() {
+struct config_t $CONFIG_create_default_config() {
 
     _initialize_default_modules();
 
@@ -244,12 +245,12 @@ static void _set_global_color(struct color_t *color, char *color_name) {
         }
     }
 
-    $log_debug(DEBUG_LEVEL_MIN, "_set_global_color", "Invalid color name: %s", color_name);
+    $LOG_debug(DEBUG_LEVEL_MIN, "_set_global_color", "Invalid color name: %s", color_name);
 }
 
 static void _parse_global_style(struct config_t *config, cJSON *style) {
 
-    $log_debug(DEBUG_LEVEL_MEDIUM, "_parse_global_style", "Parsing global style");
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "_parse_global_style", "Parsing global style");
 
     // Set dividers and padding
     cJSON *container_start_divider = cJSON_GetObjectItem(style, "container_start_divider");
@@ -313,10 +314,10 @@ static void _parse_global_style(struct config_t *config, cJSON *style) {
 // Module functions
 
 static void _set_module_color(struct color_t **color, char *color_name, struct config_t *config) {
-    $log_debug(DEBUG_LEVEL_MEDIUM, "_set_module_color", "Setting module color: %s", color_name);
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "_set_module_color", "Setting module color: %s", color_name);
     for (int i = 0; i < AVAILABLE_COLORS_LENGTH; i++) {
         if (strcmp(color_name, $colors[i]->name) == 0) {
-            $log_debug(DEBUG_LEVEL_MEDIUM, "_set_module_color", "Found color: %s", color_name);
+            $LOG_debug(DEBUG_LEVEL_MEDIUM, "_set_module_color", "Found color: %s", color_name);
             *color = $colors[i];
             return;
         }
@@ -340,23 +341,23 @@ static void _set_module_color(struct color_t **color, char *color_name, struct c
         return;
     }
 
-    $log_debug(DEBUG_LEVEL_MEDIUM, "_set_module_color", "Invalid color name: %s", color_name);
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "_set_module_color", "Invalid color name: %s", color_name);
 }
 
 static void _parse_module_style(struct module_t *module, cJSON *style, struct config_t *config) {
 
-    $log_debug(DEBUG_LEVEL_MEDIUM, "_parse_module_style", "Parsing module style");
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "_parse_module_style", "Parsing module style");
 
     cJSON *background_color = cJSON_GetObjectItem(style, "background_color");
     if (background_color != NULL) {
-        $log_debug(DEBUG_LEVEL_MAX, "_parse_module_style", "Setting %s background color to %s",
+        $LOG_debug(DEBUG_LEVEL_MAX, "_parse_module_style", "Setting %s background color to %s",
                    module->name, background_color->valuestring);
         _set_module_color(&module->style.background_color, background_color->valuestring, config);
     }
 
     cJSON *foreground_color = cJSON_GetObjectItem(style, "foreground_color");
     if (foreground_color != NULL) {
-        $log_debug(DEBUG_LEVEL_MAX, "_parse_module_style", "Setting %s foreground color to %s",
+        $LOG_debug(DEBUG_LEVEL_MAX, "_parse_module_style", "Setting %s foreground color to %s",
                    module->name, foreground_color->valuestring);
         _set_module_color(&module->style.foreground_color, foreground_color->valuestring, config);
     }
@@ -364,7 +365,7 @@ static void _parse_module_style(struct module_t *module, cJSON *style, struct co
 
 static void _parse_icon_style(struct module_t *module, cJSON *icon_style, struct config_t *config) {
 
-    $log_debug(DEBUG_LEVEL_MEDIUM, "_parse_icon_style", "Parsing icon style");
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "_parse_icon_style", "Parsing icon style");
 
     cJSON *background_color = cJSON_GetObjectItem(icon_style, "background_color");
     if (background_color != NULL) {
@@ -380,14 +381,14 @@ static void _parse_icon_style(struct module_t *module, cJSON *icon_style, struct
 
     cJSON *separator = cJSON_GetObjectItem(icon_style, "separator");
     if (separator != NULL) {
-        $log_debug(DEBUG_LEVEL_MAX, "_parse_icon_style", "Setting %s separator to %s", module->name,
+        $LOG_debug(DEBUG_LEVEL_MAX, "_parse_icon_style", "Setting %s separator to %s", module->name,
                    separator->valuestring);
         module->icon_style.separator = strdup(separator->valuestring);
     }
 }
 
 static void _parse_module(struct module_t *module, cJSON *module_json, struct config_t *config) {
-    $log_debug(DEBUG_LEVEL_MEDIUM, "_parse_module", "Parsing module: %s", module_json->string);
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "_parse_module", "Parsing module: %s", module_json->string);
 
     // Set icon
     char *icon = cJSON_GetObjectItem(module_json, "icon")->valuestring;
@@ -422,10 +423,10 @@ static void _parse_containers(struct config_t *config, cJSON *containers) {
 }
 
 static void _parse_config_json(struct config_t *config, char *config_file_content) {
-    $log_debug(DEBUG_LEVEL_MEDIUM, "_parse_config_json", "Parsing config from JSON");
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "_parse_config_json", "Parsing config from JSON");
     cJSON *json = cJSON_Parse(config_file_content);
     if (json == NULL) {
-        $throw_error("_parse_config_json : cJSON_Parse", "Failed to parse JSON");
+        $UTILS_throw_error("_parse_config_json : cJSON_Parse", "Failed to parse JSON");
     }
 
     // Parse version
@@ -452,71 +453,84 @@ static void _parse_config_json(struct config_t *config, char *config_file_conten
     cJSON_Delete(json);
 }
 
-void $set_config_from_json(struct config_t *config, char *config_file_content) {
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$set_config_from_json", "Setting config from JSON");
+void $CONFIG_set_config_from_json(struct config_t *config, char *config_file_content) {
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_set_config_from_json", "Setting config from JSON");
     _parse_config_json(config, config_file_content);
 }
 
-void $free_config() {
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$free_config", "Freeing config");
+void $CONFIG_free_config() {
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_free_config", "Freeing config");
     // TODO: Free config
+}
+
+void $CONFIG_set_config_from_file(struct config_t *config) {
+    char *config_file_content = $UTILS_get_file_content($GLOBAL_config_file_path);
+
+    if (config_file_content == NULL) {
+        $UTILS_throw_error("_get_config_from_file : _read_json_file", "Failed to read config file");
+    }
+
+    $CONFIG_set_config_from_json(config, config_file_content);
+
+    $CONFIG_free_config();
 }
 
 // Debug functions
 
-void $debug_config(struct config_t *config) {
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Version: %s", config->version);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Global style:");
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container start divider: %s",
+void $CONFIG_debug_config(struct config_t *config) {
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Version: %s", config->version);
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Global style:");
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Container start divider: %s",
                config->global_style.container_start_divider);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container end divider: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Container end divider: %s",
                config->global_style.container_end_divider);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container padding: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Container padding: %s",
                config->global_style.container_padding);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container spacer: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Container spacer: %s",
                config->global_style.container_spacer);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Module separator: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Module separator: %s",
                config->global_style.module_separator);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Module padding: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Module padding: %s",
                config->global_style.module_padding);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Primary color: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Primary color: %s",
                config->global_style.primary_color->name);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Secondary color: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Secondary color: %s",
                config->global_style.secondary_color->name);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Tertiary color: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Tertiary color: %s",
                config->global_style.tertiary_color->name);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Quaternary color: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Quaternary color: %s",
                config->global_style.quaternary_color->name);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Success color: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Success color: %s",
                config->global_style.success_color->name);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Warning color: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Warning color: %s",
                config->global_style.warning_color->name);
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Error color: %s",
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Error color: %s",
                config->global_style.error_color->name);
 
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Modules:");
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Modules:");
     for (int i = 0; i < AVAILABLE_MODULES_LENGTH; i++) {
         if (config->modules[i].name != NULL) {
-            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Module %d: %s", i,
+            $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Module %d: %s", i,
                        config->modules[i].name);
-            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Icon: %s", config->modules[i].icon);
-            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Background color: %s",
+            $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Icon: %s",
+                       config->modules[i].icon);
+            $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Background color: %s",
                        config->modules[i].style.background_color->name);
-            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Foreground color: %s",
+            $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Foreground color: %s",
                        config->modules[i].style.foreground_color->name);
-            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Icon background color: %s",
+            $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Icon background color: %s",
                        config->modules[i].icon_style.background_color->name);
-            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Icon foreground color: %s",
+            $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Icon foreground color: %s",
                        config->modules[i].icon_style.foreground_color->name);
-            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Icon separator: %s",
+            $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Icon separator: %s",
                        config->modules[i].icon_style.separator);
         }
     }
 
-    $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Containers:");
+    $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Containers:");
     for (int i = 0; i < MAX_CONTAINERS; i++) {
         if (config->containers[i].name != NULL) {
-            $log_debug(DEBUG_LEVEL_MEDIUM, "$debug_config", "Container %d: %s", i,
+            $LOG_debug(DEBUG_LEVEL_MEDIUM, "$CONFIG_debug_config", "Container %d: %s", i,
                        config->containers[i].name);
         }
     }

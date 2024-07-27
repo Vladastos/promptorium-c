@@ -5,14 +5,14 @@
 #include "../common-modules.h"
 #include "../utils/definitions.h"
 
-int $log_message(int log_level, char *message, va_list args);
+int $LOG_message(int log_level, char *message, va_list args);
 
-int $log_info(char *message, ...);
+int $LOG_info(char *message, ...);
 
-int $log_error(char *function_name, char *message, va_list args);
+int $LOG_error(char *function_name, char *message, va_list args);
 
-int $log_warning(char *message, ...);
+int $LOG_warning(char *message, ...);
 
-int $log_debug(int level, char *function_name, char *message, ...);
+int $LOG_debug(int level, char *function_name, char *message, ...);
 
 #endif
