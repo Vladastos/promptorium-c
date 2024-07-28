@@ -56,8 +56,10 @@ char *print_prompt() {
     $CONFIG_set_config_from_file(&config);
 
     $CONFIG_debug_config(&config);
+    
+    char* prompt;
 
-    // TODO: return the prompt
+
 
     return 0;
 }

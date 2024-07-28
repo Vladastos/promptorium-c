@@ -3,9 +3,7 @@
 static void _print_help() {
     printf("Usage: promptorium <command> [options]\n");
     printf("Commands:\n");
-    printf("  init             Load (or reload) config into shared memory\n");
     printf("  prompt           Print the prompt\n");
-    printf("  cleanup          Clean up the shared memory\n");
     printf("Options:\n");
     printf("  -h, --help       Print this help message\n");
     printf("  -v, --version    Print the version\n");
@@ -20,20 +18,13 @@ static void _print_version() {
 
 static void _parse_command(int argc, char *argv[]) {
 
+    if (argc <= 1) {
+        return;
+    }
     for (int i = 1; i < argc; i++) {
-
-        if (strcmp(argv[i], "init") == 0) {
-            init_config(argc, argv);
-            exit(0);
-        }
 
         if (strcmp(argv[i], "prompt") == 0) {
             print_prompt();
-            exit(0);
-        }
-
-        if (strcmp(argv[i], "cleanup") == 0) {
-            cleanup();
             exit(0);
         }
 
@@ -112,8 +103,6 @@ int run_application(int argc, char *argv[]) {
     argc = _parse_global_args(argc, argv);
 
     _parse_command(argc, argv);
-
-    $UTILS_throw_error("$run_application", "Command %s not found", argv[1]);
 
     return 0;
 }
