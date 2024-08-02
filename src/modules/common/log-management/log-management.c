@@ -28,7 +28,7 @@ int $LOG_message(int log_level, char *message, va_list args) {
     struct tm *tm = localtime(&t);
     char date[80];
     strftime(date, sizeof(date), "%Y-%m-%d %H:%M:%S", tm);
-    //TODO: print errors to stderr
+    // TODO: print errors to stderr
     if ($GLOBAL_debug_level >= DEBUG_LEVEL_MIN) {
         printf("[ %s ] [ %s ] %s \n", date, log_level_string, assembled_message);
     } else {

@@ -74,16 +74,10 @@ static struct container_style_t _create_default_container_style() {
         .foreground_color = DEFAULT_BACKGROUND_COLOR,
         .separator = DEFAULT_MODULE_SEPARATOR,
         .start_divider = DEFAULT_CONTAINER_START_DIVIDER,
-        .end_divider = DEFAULT_CONTAINER_END_DIVIDER};
+        .end_divider = DEFAULT_CONTAINER_END_DIVIDER,
+        .alignment = ALIGN_LEFT};
     return default_container_style;
 };
-
-static struct module_t _create_module(char *name, char *icon, struct module_style_t style,
-                                      struct icon_style_t icon_style) {
-
-    struct module_t module = {.name = name, .icon = icon, .style = style, .icon_style = icon_style};
-    return module;
-}
 
 static struct module_t _create_os_icon_module() {
 
@@ -194,6 +188,8 @@ static void _initialize_default_containers() {
                "Initializing default containers");
 
     struct container_style_t default_container_style = _create_default_container_style();
+    struct container_style_t time_container_style = _create_default_container_style();
+    time_container_style.alignment = ALIGN_RIGHT;
 
     char *user_modules[] = {"user", "hostname"};
     char *cwd_modules[] = {"cwd", "git"};
@@ -203,7 +199,7 @@ static void _initialize_default_containers() {
                                               DEFAULT_MODULE_SEPARATOR);
     $containers[1] = $CONFIG_create_container(cwd_modules, 2, "cwd", default_container_style,
                                               DEFAULT_MODULE_SEPARATOR);
-    $containers[2] = $CONFIG_create_container(time_modules, 1, "time", default_container_style,
+    $containers[2] = $CONFIG_create_container(time_modules, 1, "time", time_container_style,
                                               DEFAULT_MODULE_SEPARATOR);
 };
 

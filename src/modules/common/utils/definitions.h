@@ -26,11 +26,6 @@
 #define CONFIG_FILE_DIR "/home/vlad/Documents/promptorium-c/conf"
 #define CONFIG_FILE_PATH CONFIG_FILE_DIR "/" CONFIG_FILE_NAME
 
-// Shared memory constants
-
-#define SHARED_MEMORY_NAME "/tmp"
-#define SHARED_MEMORY_SEGMENT_SIZE 4096
-
 //
 // Style constants and config
 //
@@ -39,6 +34,10 @@
 #define MAX_CONTAINERS 10
 #define AVAILABLE_MODULES {"os_icon", "username", "hostname", "cwd", "git", "time", "exit_status"}
 #define AVAILABLE_MODULES_LENGTH 7
+
+// Container alignment
+#define ALIGN_LEFT 0
+#define ALIGN_RIGHT 1
 
 // Defaults styles
 
@@ -95,6 +94,7 @@ struct container_style_t {
     char *separator;
     char *start_divider;
     char *end_divider;
+    int alignment;
 };
 
 struct promptorium_container_t {

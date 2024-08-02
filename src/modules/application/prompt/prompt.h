@@ -3,6 +3,6 @@
 
 #include "../../common/common-modules.h"
 
-char *print_prompt();
+char *$PROMPT_print();
 
 #endif

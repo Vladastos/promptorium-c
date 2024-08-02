@@ -2,9 +2,9 @@
 #define APPLICATION_H
 
 #include "../common/common-modules.h"
-#include "print-prompt/print-prompt.h"
+#include "prompt/prompt.h"
 
 
-int run_application(int argc, char *argv[]);
+int $APPLICATION_run(int argc, char *argv[]);
 
 #endif
